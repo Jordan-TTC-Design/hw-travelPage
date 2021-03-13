@@ -1,0 +1,139 @@
+.addTicketPannel {
+  display: flex;
+  padding:60px 95px;
+  border-radius: 8px;
+  margin-bottom: 100px;
+  margin-top: 23px;
+}
+.addTicketPicBox {
+  display: flex;
+  flex-direction: column;
+  //   width: 50%;
+}
+.addTicketForm {
+  width: 80%;
+  .title{
+    display: flex;
+    align-items: center;
+    color: $primary;
+    font-size: 24px;
+    font-weight: $font-weight-bold;
+    padding-bottom: 10px;
+    border-bottom: 2px solid $primary;
+    .fas{
+      // line-height: 33px;
+      font-size: 20px;
+      margin-right: 6px;
+    }
+  }
+}
+.form__inputList {
+  display: flex;
+  align-items: center;
+  .form__label {
+    color:$primary;
+    font-weight: $font-weight-medium;
+    margin-right: 8px;
+  }
+  .form__input {
+    flex-grow: 1;
+    height: 38px;
+    background-color: #fafafa;
+    border-radius: 0;
+    border: 0;
+    border-bottom: 1px solid $primary;
+    padding: 4px;
+  }
+  .form__textarea{
+    height: 120px;
+  }
+  .form__inputBtn{
+    padding: 10px 48px;
+  }
+}
+
+.mainArea{
+  background-color: #F7F7F7;
+  padding: 56px 0 ;
+}
+.travelCardList{
+  display: flex;
+
+}
+.travelCard{
+  height: 100%;
+  background-color: #fff;
+  border-radius: 4px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  .card__place{
+    display: flex;
+    padding: 8px 20px;
+    background-color: #64C3BF;
+    color: $white;
+    border-radius: 0px 4px 4px 0px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(-8px);
+  }
+}
+.travelCard__img img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+.travelCard__content{
+  padding: 20px;
+  position: relative;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .card__name{
+    font-size: 24px;
+    color: $primary;
+    padding-bottom: 4px;
+    border-bottom: 1px solid $primary;
+    margin-bottom: 16px;
+  }
+  .card__txt{
+    color:$light-gray;
+    margin-bottom: 20px;
+  }
+  
+  .card__rank{
+    display: flex;
+    padding: 5px 8px;
+    background-color: $primary;
+    color: $white;
+    border-radius: 0px 4px 4px 0px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(-50%);
+  }
+  .card__info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px;
+    color:$primary;
+  }
+  .crad__num{
+    .icon{
+      margin-right: 4px;
+    }
+  }
+  .card__price{
+    display: flex;
+    align-items: center;
+    font-weight: $font-weight-medium;
+    font-size: 32px;
+      span{
+        font-size: 16px;
+        font-weight: $font-weight-medium;
+      }
+  }
+}

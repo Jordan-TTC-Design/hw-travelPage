@@ -18,75 +18,131 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Dropdown
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
-      </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
-    </div>
-  </nav>
-
   
-<div class="container">
-  <div class="alert alert-primary" role="alert">
-    A simple primary alert—check it out!
+<section>
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-10">
+        <div class="addTicketPannel d-flex box-shadow">
+          <div class="addTicketPicBox">
+            <img src="https://i.imgur.com/iRssPpJ.png" alt="吉祥物" />
+            <img src="https://i.imgur.com/vJt0znH.png" alt="活動名稱" />
+          </div>
+          <form action="addTicket-form" class="addTicketForm">
+            <h4 class="title mb-7">
+              <i class="fas fa-plus-circle"></i>新增旅遊套票
+            </h4>
+            <div class="form__inputList mb-4">
+              <label class="form__label" for="ticketName">套票名稱</label>
+              <input
+                class="form__input"
+                type="text"
+                id="ticketName"
+                name="套票名稱"
+                placeholder="請輸入套票名稱"
+              />
+            </div>
+            <div class="form__inputList mb-4">
+              <label class="form__label" for="ticketPicUrl">圖片網址</label>
+              <input
+                class="form__input"
+                type="text"
+                id="ticketPicUrl"
+                name="圖片網址"
+                placeholder="請填寫圖片網址"
+              />
+            </div>
+            <div class="form__inputList mb-4">
+              <label class="form__label" for="ticketPlace ">景點地區</label>
+              <select class="form__input" id="ticketPlace" name="景點地區">
+                <option class="text-light-gray" value="" disabled selected>
+                  請選擇景點地區
+                </option>
+                <option value="台北">台北</option>
+                <option value="台中">台中</option>
+                <option value="高雄">高雄</option>
+              </select>
+            </div>
+            <div class="form__inputList mb-4">
+              <label class="form__label" for="ticketPrice">套票金額</label>
+              <input
+                class="form__input"
+                type="text"
+                id="ticketPrice"
+                name="套票金額"
+                placeholder="請選擇套票金額"
+                min="0"
+              />
+            </div>
+            <div class="form__inputList mb-4">
+              <label class="form__label" for="ticketNum">套票組數</label>
+              <input
+                class="form__input"
+                type="text"
+                id="ticketNum"
+                name="套票組數"
+                placeholder="請選擇套票組數"
+              />
+            </div>
+            <div class="form__inputList mb-4">
+              <label class="form__label" for="ticketStart">套票星級</label>
+              <input
+                class="form__input"
+                type="text"
+                id="ticketStart"
+                name="套票星級"
+                placeholder="請選擇套票金額"
+              />
+            </div>
+            <div class="form__inputList align-items-start mb-4">
+              <label class="form__label" for="ticketDescript">套票描述</label>
+              <textarea
+                class="form__input form__textarea"
+                name="套票描述"
+                id="ticketDescript"
+                cols="30"
+                rows="10"
+              ></textarea>
+            </div>
+            <div class="form__inputList d-flex justify-content-end">
+              <input
+                class="form__inputBtn btn btn-primary"
+                type="button"
+                value="新增套票"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="alert alert-secondary" role="alert">
-    A simple secondary alert—check it out!
+</section>
+<section class="mainArea">
+  <div class="container">
+    <ul class="row travelCardList">
+      <li class="col-4">
+        <div class="travelCard box-shadow">
+          <p class="card__place">台北</p>
+          <div class="travelCard__img">
+              <img src="https://i.imgur.com/QXa1fMZ.png" alt="">
+          </div>
+        <div class="travelCard__content">
+          <div>
+            <p class="card__rank">8.5</p>
+            <h4 class="card__name">綠島自由行套裝行程</h4>
+            <p class="card__txt">嚴選超高CP值綠島自由行套裝行程，多種綠島套裝組合，提供台東綠島來回船票、綠島環島機車、綠島民宿住宿，行程加贈『綠島浮潛體驗』以及『綠島生態導覽』，讓你用輕鬆的綠島套裝自由行，也能深度認識綠島在地文化。</p>
+          </div>
+          <div class="card__info">
+            <p class="crad__num"><i class="icon fas fa-exclamation-circle"></i>剩下最後 8 組</p>
+            <h5 class="card__price"><span>TWD</span>$1,280</h5>
+          </div>
+        </div>
+      </div>
+      </li>
+    </div>
   </div>
-  <div class="alert alert-success" role="alert">
-    A simple success alert—check it out!
-  </div>
-  <div class="alert alert-danger" role="alert">
-    A simple danger alert—check it out!
-  </div>
-  <div class="alert alert-warning" role="alert">
-    A simple warning alert—check it out!
-  </div>
-  <div class="alert alert-info" role="alert">
-    A simple info alert—check it out!
-  </div>
-  <div class="alert alert-light" role="alert">
-    A simple light alert—check it out!
-  </div>
-  <div class="alert alert-dark" role="alert">
-    A simple dark alert—check it out!
-  </div>
-</div>
+</section>
 
-  <footer class="footer">
-    footer
-  </footer>
   <!-- 外掛 -->
   <script src="./assets/js/vendors.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -95,6 +151,7 @@
   <!-- 外掛自訂 -->
   <script src="./assets/js/helpers/swiper.js"></script>
   <!-- 自訂 -->
+  <script src="./assets/js/data.js"></script>
   <script src="./assets/js/all.js"></script>
 </body>
 
