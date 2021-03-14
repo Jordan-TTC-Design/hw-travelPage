@@ -52,7 +52,7 @@ $(document).ready(() => {
       obj.imgUrl = `https://picsum.photos/900/600?image=${lastTravelData+10}`
       obj.area = ticketPlace.value
       obj.description = ticketDescript.value
-      obj.group = `剩下最後 ${ticketNum.value} 組`
+      obj.group = `${ticketNum.value}`
       obj.price = ticketPrice.value
       obj.rate = ticketRank.value
       formClean()

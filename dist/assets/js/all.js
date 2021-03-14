@@ -38,7 +38,7 @@ $(document).ready(function () {
     obj.imgUrl = "https://picsum.photos/900/600?image=".concat(lastTravelData + 10);
     obj.area = ticketPlace.value;
     obj.description = ticketDescript.value;
-    obj.group = "\u5269\u4E0B\u6700\u5F8C ".concat(ticketNum.value, " \u7D44");
+    obj.group = "".concat(ticketNum.value);
     obj.price = ticketPrice.value;
     obj.rate = ticketRank.value;
     formClean();
