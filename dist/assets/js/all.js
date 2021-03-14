@@ -31,50 +31,109 @@ $(document).ready(function () {
   showTravelCard(); //抓取資料產生物件
 
   function getTravelData() {
-    if (ticketNum.value > 100) {
-      alert("\u5957\u7968\u7D44\u6578\u6700\u591A99\u7D44");
-
-      if (ticketPrice.value > 100000) {
-        alert("\u5957\u7968\u91D1\u984D\u6700\u9AD810\u842C\u5143");
-
-        if (ticketRank.value > 10) {
-          alert("\u5957\u7968\u661F\u7D1A\u6700\u9AD810\u5206");
-          return;
-        }
-
-        return;
-      }
-
-      return;
-    } else {
-      var lastTravelData = data.length - 1;
-      var obj = {};
-      obj.id = lastTravelData;
-      obj.name = ticketName.value;
-      obj.imgUrl = "https://picsum.photos/900/600?image=".concat(lastTravelData + 10);
-      obj.area = ticketPlace.value;
-      obj.description = ticketDescript.value;
-      obj.group = "\u5269\u4E0B\u6700\u5F8C ".concat(ticketNum.value, " \u7D44");
-      obj.price = ticketPrice.value;
-      obj.rate = ticketRank.value;
-      formClean();
-      return obj;
-    }
+    var priceTxt = ticketPrice.value.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    console.log(priceTxt);
+    var lastTravelData = data.length - 1;
+    var obj = {};
+    obj.id = lastTravelData;
+    obj.name = ticketName.value;
+    obj.imgUrl = "https://picsum.photos/900/600?image=".concat(lastTravelData + 10);
+    obj.area = ticketPlace.value;
+    obj.description = ticketDescript.value;
+    obj.group = "\u5269\u4E0B\u6700\u5F8C ".concat(ticketNum.value, " \u7D44");
+    obj.price = priceTxt;
+    obj.rate = ticketRank.value;
+    formClean();
+    return obj;
   }
 
-  ; //推送資料進入陣列
+  ; //檢查表單空白
 
-  function addTravelCard() {
-    var obj = getTravelData();
-    console.log(obj);
-
-    if (obj.length !== 0) {
-      data.push(obj);
-      console.log(obj);
-      showTravelCard();
+  function checkFormBlank() {
+    if (ticketName.value == '') {
+      alert('套票名稱未填');
+      ticketName.focus();
+      return false;
     }
 
-    return;
+    if (ticketPicUrl == '') {
+      alert('圖片網址未填');
+      ticketPicUrl.focus();
+      return false;
+    }
+
+    if (ticketPlace == '') {
+      alert('景點地區未填');
+      ticketPlace.focus();
+      return false;
+    }
+
+    if (ticketPrice == '') {
+      alert('套票金額未填');
+      ticketPrice.focus();
+      return false;
+    }
+
+    if (ticketNum == '') {
+      alert('套票組數未填');
+      ticketNum.focus();
+      return false;
+    }
+
+    if (ticketRank == '') {
+      alert('套票星級未填');
+      ticketRank.focus();
+      return false;
+    }
+
+    if (ticketDescript == '') {
+      alert('套票描述未填');
+      ticketDescript.focus();
+      return false;
+    }
+
+    return true;
+  } //檢查input值
+
+
+  function checkFormLimit() {
+    if (ticketNum.value > 100) {
+      alert("\u5957\u7968\u7D44\u6578\u6700\u591A99\u7D44");
+      ticketNum.focus();
+      return false;
+    }
+
+    if (ticketPrice.value > 100000) {
+      alert("\u5957\u7968\u91D1\u984D\u6700\u9AD810\u842C\u5143");
+      ticketPrice.focus();
+      return false;
+    }
+
+    if (ticketRank.value > 10) {
+      alert("\u5957\u7968\u661F\u7D1A\u6700\u9AD810\u5206");
+      ticketRank.focus();
+      return false;
+    }
+
+    return true;
+  } //推送資料進入陣列
+
+
+  function addTravelCard() {
+    var checkState = checkFormBlank();
+    var FormLimit = checkFormLimit(); // console.log(checkState)
+
+    if (checkState == false) {
+      return;
+    } else if (FormLimit == false) {
+      return;
+    } else if (checkState == true && FormLimit == true) {
+      var obj = getTravelData(); // console.log(obj)
+
+      data.push(obj); // console.log(obj)
+
+      showTravelCard();
+    }
   } //清除input
 
 

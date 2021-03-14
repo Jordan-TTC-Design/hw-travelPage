@@ -45,18 +45,9 @@ $(document).ready(() => {
 
   //抓取資料產生物件
   function getTravelData(){
-    if(ticketNum.value>100){
-      alert(`套票組數最多99組`)
-      if(ticketPrice.value>100000){
-        alert(`套票金額最高10萬元`)
-        if(ticketRank.value>10){
-        alert(`套票星級最高10分`)
-        return
-        }
-        return
-      }
-      return
-    }else{
+    
+      let priceTxt = ticketPrice.value.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+      console.log(priceTxt)
       let lastTravelData = data.length-1
       const obj ={}
       obj.id = lastTravelData
@@ -65,24 +56,90 @@ $(document).ready(() => {
       obj.area = ticketPlace.value
       obj.description = ticketDescript.value
       obj.group = `剩下最後 ${ticketNum.value} 組`
-      obj.price = ticketPrice.value
+      obj.price = priceTxt
       obj.rate = ticketRank.value
       formClean()
       return obj;
-    }
-    
   };
+
+//檢查表單空白
+function checkFormBlank(){
+  if(ticketName.value==''){
+    alert('套票名稱未填');
+    ticketName.focus();
+    return false;
+  }
+  if(ticketPicUrl==''){
+    alert('圖片網址未填');
+    ticketPicUrl.focus();
+    return false;
+  }
+  if(ticketPlace==''){
+    alert('景點地區未填');
+    ticketPlace.focus();
+    return false;
+  }
+  if(ticketPrice==''){
+    alert('套票金額未填');
+    ticketPrice.focus();
+    return false;
+  }
+  if(ticketNum==''){
+    alert('套票組數未填');
+    ticketNum.focus();
+    return false;
+  }
+  if(ticketRank==''){
+    alert('套票星級未填');
+    ticketRank.focus();
+    return false;
+  }
+  if(ticketDescript==''){
+    alert('套票描述未填');
+    ticketDescript.focus();
+    return false;
+  }
+  return true;
+}
+
+//檢查input值
+function checkFormLimit(){
+  if(ticketNum.value>100){
+    alert(`套票組數最多99組`)
+    ticketNum.focus();
+    return false;   
+  }
+  if(ticketPrice.value>100000){
+    alert(`套票金額最高10萬元`)
+    ticketPrice.focus();
+    return false;
+  }
+  if(ticketRank.value>10){
+    alert(`套票星級最高10分`)
+    ticketRank.focus();
+    return false;
+  }
+  return true;
+}
+
   //推送資料進入陣列
   function addTravelCard(){
-    let obj = getTravelData()
-    console.log(obj)
-    if(obj.length !== 0){
+    let checkState = checkFormBlank()
+    let FormLimit = checkFormLimit()
+    // console.log(checkState)
+    if(checkState == false){
+    return
+    }else if(FormLimit==false){
+      return
+    }else if(checkState == true && FormLimit==true){
+      let obj = getTravelData()
+      // console.log(obj)
       data.push(obj)
-      console.log(obj)
+      // console.log(obj)
       showTravelCard()
     }
-    return
   }
+
   //清除input
   function formClean(){
     ticketName.value = ''

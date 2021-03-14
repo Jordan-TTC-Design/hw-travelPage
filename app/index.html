@@ -14,7 +14,7 @@ current: index
             <img src="https://i.imgur.com/iRssPpJ.png" alt="吉祥物" />
             <img src="https://i.imgur.com/vJt0znH.png" alt="活動名稱" />
           </div>
-          <form action="addTicket-form" class="addTicketForm">
+          <form action="addTicket-form" class="addTicketForm ">
             <h4 class="title mb-7">
               <i class="fas fa-plus-circle"></i>新增旅遊套票
             </h4>
@@ -26,6 +26,7 @@ current: index
                 id="ticketName"
                 name="套票名稱"
                 placeholder="請輸入套票名稱"
+                required
               />
             </div>
             <div class="form__inputList mb-4">
@@ -36,11 +37,12 @@ current: index
                 id="ticketPicUrl"
                 name="圖片網址"
                 placeholder="請填寫圖片網址"
+                required
               />
             </div>
             <div class="form__inputList mb-4">
-              <label class="form__label" for="ticketPlace ">景點地區</label>
-              <select class="form__input" id="ticketPlace" name="景點地區">
+              <label class="form__label" for="ticketPlace">景點地區</label>
+              <select class="form__input" id="ticketPlace" name="景點地區" required>
                 <option class="text-light-gray" value="" disabled selected>
                   請選擇景點地區
                 </option>
@@ -50,14 +52,15 @@ current: index
               </select>
             </div>
             <div class="form__inputList mb-4">
-              <label class="form__label" for="ticketPrice">套票金額</label>
+              <label class="form__label" for="ticketPrice" >套票金額</label>
               <input
                 class="form__input"
                 type="number"
                 id="ticketPrice"
                 name="套票金額"
-                placeholder="請選擇套票金額"
-                min="0"
+                placeholder="請選擇套票金額(最多10萬元)"
+                min="1" max="100000"
+                required
               />
             </div>
             <div class="form__inputList mb-4">
@@ -67,7 +70,9 @@ current: index
                 type="number"
                 id="ticketNum"
                 name="套票組數"
-                placeholder="請選擇套票組數"
+                placeholder="請填寫套票組數(最多99組)"
+                required
+                min="1" max="99"
               />
             </div>
             <div class="form__inputList mb-4">
@@ -77,7 +82,9 @@ current: index
                 type="number"
                 id="ticketRank"
                 name="套票星級"
-                placeholder="請選擇套票星級"
+                placeholder="請填寫套票星級(最多10級)"
+                required
+                min="1" max="10"
               />
             </div>
             <div class="form__inputList align-items-start mb-4">
@@ -88,7 +95,8 @@ current: index
                 id="ticketDescript"
                 cols="30"
                 rows="10"
-                placeholder="請填寫套票描述（限 100 字）"
+                placeholder="請填寫套票描述(限100字)"
+                required
               ></textarea>
             </div>
             <div class="form__inputList d-flex justify-content-end">
