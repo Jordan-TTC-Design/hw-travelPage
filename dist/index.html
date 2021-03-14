@@ -22,7 +22,7 @@
 <section>
   <div class="container">
     <div class="row d-flex justify-content-center">
-      <div class="col-10">
+      <div class="col-xl-10 col-12">
         <div class="addTicketPannel d-flex box-shadow">
           <div class="addTicketPicBox">
             <img src="https://i.imgur.com/iRssPpJ.png" alt="吉祥物" />
@@ -67,7 +67,7 @@
               <label class="form__label" for="ticketPrice">套票金額</label>
               <input
                 class="form__input"
-                type="text"
+                type="number"
                 id="ticketPrice"
                 name="套票金額"
                 placeholder="請選擇套票金額"
@@ -78,20 +78,20 @@
               <label class="form__label" for="ticketNum">套票組數</label>
               <input
                 class="form__input"
-                type="text"
+                type="number"
                 id="ticketNum"
                 name="套票組數"
                 placeholder="請選擇套票組數"
               />
             </div>
             <div class="form__inputList mb-4">
-              <label class="form__label" for="ticketStart">套票星級</label>
+              <label class="form__label" for="ticketRank">套票星級</label>
               <input
                 class="form__input"
-                type="text"
-                id="ticketStart"
+                type="number"
+                id="ticketRank"
                 name="套票星級"
-                placeholder="請選擇套票金額"
+                placeholder="請選擇套票星級"
               />
             </div>
             <div class="form__inputList align-items-start mb-4">
@@ -102,6 +102,7 @@
                 id="ticketDescript"
                 cols="30"
                 rows="10"
+                placeholder="請填寫套票描述（限 100 字）"
               ></textarea>
             </div>
             <div class="form__inputList d-flex justify-content-end">
@@ -119,9 +120,27 @@
 </section>
 <section class="mainArea">
   <div class="container">
-    <ul class="row travelCardList">
-      <li class="col-4">
-        <div class="travelCard box-shadow">
+    <div class="row">
+      <form class="col-12 tavelFilterForm">
+        <div class="form__inputList">
+          <!-- <label class="form__label" for="ticketPlace ">景點地區</label> -->
+          <select class="travalSelect rounded" id="travalSelect" name="景點地區">
+            <option class="text-light-gray" value="" disabled selected>
+              地區搜尋
+            </option>
+            <option value="不限">不限</option>
+            <option value="台北">台北</option>
+            <option value="台中">台中</option>
+            <option value="高雄">高雄</option>
+          </select>
+        </div>
+        <p class="filterResult" id="filterResult">
+        </p>
+      </form>
+      </div>
+      <div class="row">
+      <ul class="col-12  travelCardList">
+        <!-- <li class="travelCard box-shadow">
           <p class="card__place">台北</p>
           <div class="travelCard__img">
               <img src="https://i.imgur.com/QXa1fMZ.png" alt="">
@@ -137,8 +156,9 @@
             <h5 class="card__price"><span>TWD</span>$1,280</h5>
           </div>
         </div>
+      </li> -->
+      </ul>
       </div>
-      </li>
     </div>
   </div>
 </section>
