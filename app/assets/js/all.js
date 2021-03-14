@@ -31,7 +31,7 @@ $(document).ready(() => {
           <p class="card__txt">${item.description}</p>
         </div>
         <div class="card__info">
-          <p class="crad__num"><i class="icon fas fa-exclamation-circle"></i> ${item.group} </p>
+          <p class="crad__num"><i class="icon fas fa-exclamation-circle"></i>剩下最後 ${item.group} 組</p>
           <h5 class="card__price"><span>TWD</span>$${item.price}</h5>
         </div>
       </div>
@@ -45,8 +45,6 @@ $(document).ready(() => {
 
   //抓取資料產生物件
   function getTravelData(){
-    
-      let priceTxt = ticketPrice.value.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
       console.log(priceTxt)
       let lastTravelData = data.length-1
       const obj ={}
@@ -56,7 +54,7 @@ $(document).ready(() => {
       obj.area = ticketPlace.value
       obj.description = ticketDescript.value
       obj.group = `剩下最後 ${ticketNum.value} 組`
-      obj.price = priceTxt
+      obj.price = ticketPrice.value
       obj.rate = ticketRank.value
       formClean()
       return obj;
@@ -178,7 +176,7 @@ function checkFormLimit(){
             <p class="card__txt">${item.description}</p>
           </div>
           <div class="card__info">
-            <p class="crad__num"><i class="icon fas fa-exclamation-circle"></i> ${item.group} </p>
+            <p class="crad__num"><i class="icon fas fa-exclamation-circle"></i> 剩下最後 ${item.group} 組</p>
             <h5 class="card__price"><span>TWD</span>$${item.price}</h5>
           </div>
         </div>

@@ -21,7 +21,7 @@ $(document).ready(function () {
   function showTravelCard() {
     var cardList = '';
     data.forEach(function (item, index) {
-      var card = "<li data-aos=\"fade-up\" class=\"travelCard box-shadow\">\n        <p class=\"card__place\">".concat(item.area, "</p>\n        <div class=\"travelCard__img\">\n            <img src=\"https://picsum.photos/900/600?image=").concat(index + 10, "\" alt=\"\">\n        </div>\n      <div class=\"travelCard__content\">\n        <div>\n          <p class=\"card__rank\">").concat(item.rate, "</p>\n          <h4 class=\"card__name\">").concat(item.name, "</h4>\n          <p class=\"card__txt\">").concat(item.description, "</p>\n        </div>\n        <div class=\"card__info\">\n          <p class=\"crad__num\"><i class=\"icon fas fa-exclamation-circle\"></i> ").concat(item.group, " </p>\n          <h5 class=\"card__price\"><span>TWD</span>$").concat(item.price, "</h5>\n        </div>\n      </div>\n    </li>");
+      var card = "<li data-aos=\"fade-up\" class=\"travelCard box-shadow\">\n        <p class=\"card__place\">".concat(item.area, "</p>\n        <div class=\"travelCard__img\">\n            <img src=\"https://picsum.photos/900/600?image=").concat(index + 10, "\" alt=\"\">\n        </div>\n      <div class=\"travelCard__content\">\n        <div>\n          <p class=\"card__rank\">").concat(item.rate, "</p>\n          <h4 class=\"card__name\">").concat(item.name, "</h4>\n          <p class=\"card__txt\">").concat(item.description, "</p>\n        </div>\n        <div class=\"card__info\">\n          <p class=\"crad__num\"><i class=\"icon fas fa-exclamation-circle\"></i>\u5269\u4E0B\u6700\u5F8C ").concat(item.group, " \u7D44</p>\n          <h5 class=\"card__price\"><span>TWD</span>$").concat(item.price, "</h5>\n        </div>\n      </div>\n    </li>");
       cardList += card;
     }); // console.log(cardList)
 
@@ -31,7 +31,6 @@ $(document).ready(function () {
   showTravelCard(); //抓取資料產生物件
 
   function getTravelData() {
-    var priceTxt = ticketPrice.value.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     console.log(priceTxt);
     var lastTravelData = data.length - 1;
     var obj = {};
@@ -41,7 +40,7 @@ $(document).ready(function () {
     obj.area = ticketPlace.value;
     obj.description = ticketDescript.value;
     obj.group = "\u5269\u4E0B\u6700\u5F8C ".concat(ticketNum.value, " \u7D44");
-    obj.price = priceTxt;
+    obj.price = ticketPrice.value;
     obj.rate = ticketRank.value;
     formClean();
     return obj;
@@ -164,7 +163,7 @@ $(document).ready(function () {
 
     var cardList = '';
     selectCard.forEach(function (item, index) {
-      var card = "<li data-aos=\"fade-up\" class=\"travelCard box-shadow\">\n          <p class=\"card__place\">".concat(item.area, "</p>\n          <div class=\"travelCard__img\">\n              <img src=\"https://picsum.photos/900/600?image=").concat(index + 10, "\" alt=\"\">\n          </div>\n        <div class=\"travelCard__content\">\n          <div>\n            <p class=\"card__rank\">").concat(item.rate, "</p>\n            <h4 class=\"card__name\">").concat(item.name, "</h4>\n            <p class=\"card__txt\">").concat(item.description, "</p>\n          </div>\n          <div class=\"card__info\">\n            <p class=\"crad__num\"><i class=\"icon fas fa-exclamation-circle\"></i> ").concat(item.group, " </p>\n            <h5 class=\"card__price\"><span>TWD</span>$").concat(item.price, "</h5>\n          </div>\n        </div>\n      </li>");
+      var card = "<li data-aos=\"fade-up\" class=\"travelCard box-shadow\">\n          <p class=\"card__place\">".concat(item.area, "</p>\n          <div class=\"travelCard__img\">\n              <img src=\"https://picsum.photos/900/600?image=").concat(index + 10, "\" alt=\"\">\n          </div>\n        <div class=\"travelCard__content\">\n          <div>\n            <p class=\"card__rank\">").concat(item.rate, "</p>\n            <h4 class=\"card__name\">").concat(item.name, "</h4>\n            <p class=\"card__txt\">").concat(item.description, "</p>\n          </div>\n          <div class=\"card__info\">\n            <p class=\"crad__num\"><i class=\"icon fas fa-exclamation-circle\"></i> \u5269\u4E0B\u6700\u5F8C ").concat(item.group, " \u7D44</p>\n            <h5 class=\"card__price\"><span>TWD</span>$").concat(item.price, "</h5>\n          </div>\n        </div>\n      </li>");
       cardList += card;
     }); // console.log(cardList)
 
