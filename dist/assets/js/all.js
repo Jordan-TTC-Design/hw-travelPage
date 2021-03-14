@@ -31,7 +31,6 @@ $(document).ready(function () {
   showTravelCard(); //抓取資料產生物件
 
   function getTravelData() {
-    console.log(priceTxt);
     var lastTravelData = data.length - 1;
     var obj = {};
     obj.id = lastTravelData;
@@ -53,39 +52,27 @@ $(document).ready(function () {
       alert('套票名稱未填');
       ticketName.focus();
       return false;
-    }
-
-    if (ticketPicUrl == '') {
+    } else if (ticketPicUrl.value == '') {
       alert('圖片網址未填');
       ticketPicUrl.focus();
       return false;
-    }
-
-    if (ticketPlace == '') {
+    } else if (ticketPlace.value == '') {
       alert('景點地區未填');
       ticketPlace.focus();
       return false;
-    }
-
-    if (ticketPrice == '') {
+    } else if (ticketPrice.value == '') {
       alert('套票金額未填');
       ticketPrice.focus();
       return false;
-    }
-
-    if (ticketNum == '') {
+    } else if (ticketNum.value == '') {
       alert('套票組數未填');
       ticketNum.focus();
       return false;
-    }
-
-    if (ticketRank == '') {
+    } else if (ticketRank.value == '') {
       alert('套票星級未填');
       ticketRank.focus();
       return false;
-    }
-
-    if (ticketDescript == '') {
+    } else if (ticketDescript.value == '') {
       alert('套票描述未填');
       ticketDescript.focus();
       return false;
