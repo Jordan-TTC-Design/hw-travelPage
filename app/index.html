@@ -135,8 +135,8 @@ current: index
 </section>
 <section class="mainArea">
   <div class="container">
-    <div class="row">
-      <form class="col-lg-4 col-md-6 col-12 tavelFilterForm">
+    <div class="row tavelFilterForm">
+      <form class="col-lg-4 col-md-6 col-12">
         <div class="form__inputList">
           <!-- <label class="form__label" for="ticketPlace ">景點地區</label> -->
           <select
@@ -153,8 +153,10 @@ current: index
             <option value="高雄">高雄</option>
           </select>
         </div>
-        <p class="filterResult" id="filterResult"></p>
       </form>
+      <div class="col-lg-4 col-md-6 col-12 d-flex align-items-center">
+        <p class="filterResult text-light-gray" id="filterResult"></p>
+      </div>
     </div>
     <ul class="row travelCardList">
       <li class="col-4 travelCard">

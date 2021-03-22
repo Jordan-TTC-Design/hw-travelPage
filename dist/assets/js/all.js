@@ -76,10 +76,8 @@ $(document).ready(function () {
         var alertStr = document.querySelector("#alertMessage_ticket_".concat(inputName));
 
         if (item == "") {
-          result = true;
           alertStr.innerHTML = "<i class=\"fas fa-exclamation-circle\"></i><span>\u6B64\u6B04\u5FC5\u586B!</span>";
         } else {
-          result = false;
           alertStr.innerHTML = "";
         }
       }
@@ -93,25 +91,35 @@ $(document).ready(function () {
 
 
   function checkFormLimit() {
-    if (ticketNum.value > 100) {
-      alert("\u5957\u7968\u7D44\u6578\u6700\u591A99\u7D44");
-      ticketNum.focus();
-      return false;
+    var ticketNumCheck = true;
+    var ticketPriceCheck = true;
+    var ticketRankCheck = true;
+
+    if (ticketNum.value <= 0 || ticketNum.value > 100) {
+      var alertStr = document.querySelector("#alertMessage_ticket_group");
+      alertStr.innerHTML = "<i class=\"fas fa-exclamation-circle\"></i><span>\u5957\u7968\u7D44\u6578\u9700\u65BC1~99\u7D44\u4E4B\u9593</span>";
+      ticketNumCheck = false;
     }
 
-    if (ticketPrice.value > 100000) {
-      alert("\u5957\u7968\u91D1\u984D\u6700\u9AD810\u842C\u5143");
-      ticketPrice.focus();
-      return false;
+    if (ticketPrice.value <= 0 || ticketPrice.value > 100000) {
+      var _alertStr = document.querySelector("#alertMessage_ticket_price");
+
+      _alertStr.innerHTML = "<i class=\"fas fa-exclamation-circle\"></i><span>\u5957\u7968\u91D1\u984D\u9700\u65BC1~10\u842C\u5143\u4E4B\u9593</span>";
+      ticketPriceCheck = false;
     }
 
-    if (ticketRank.value > 10) {
-      alert("\u5957\u7968\u661F\u7D1A\u6700\u9AD810\u5206");
-      ticketRank.focus();
-      return false;
+    if (ticketRank.value <= 0 || ticketRank.value > 10) {
+      var _alertStr2 = document.querySelector("#alertMessage_ticket_rate");
+
+      _alertStr2.innerHTML = "<i class=\"fas fa-exclamation-circle\"></i><span>\u5957\u7968\u661F\u7D1A\u9700\u65BC1~10\u7D1A\u4E4B\u9593</span>";
+      ticketRankCheck = false;
     }
 
-    return true;
+    if (ticketNumCheck == true && ticketPriceCheck == true && ticketRankCheck == true) {
+      return true;
+    } else {
+      return false;
+    }
   } //推送資料進入陣列
 
 

@@ -117,22 +117,33 @@ $(document).ready(() => {
 
   //檢查input值
   function checkFormLimit() {
-    if (ticketNum.value > 100) {
-      alert(`套票組數最多99組`);
-      ticketNum.focus();
+    let ticketNumCheck = true;
+    let ticketPriceCheck = true;
+    let ticketRankCheck = true;
+    if (ticketNum.value <= 0 || ticketNum.value > 100) {
+      let alertStr = document.querySelector(`#alertMessage_ticket_group`);
+      alertStr.innerHTML = `<i class="fas fa-exclamation-circle"></i><span>套票組數需於1~99組之間</span>`;
+      ticketNumCheck = false;
+    }
+    if (ticketPrice.value <= 0 || ticketPrice.value > 100000) {
+      let alertStr = document.querySelector(`#alertMessage_ticket_price`);
+      alertStr.innerHTML = `<i class="fas fa-exclamation-circle"></i><span>套票金額需於1~10萬元之間</span>`;
+      ticketPriceCheck = false;
+    }
+    if (ticketRank.value <= 0 || ticketRank.value > 10) {
+      let alertStr = document.querySelector(`#alertMessage_ticket_rate`);
+      alertStr.innerHTML = `<i class="fas fa-exclamation-circle"></i><span>套票星級需於1~10級之間</span>`;
+      ticketRankCheck = false;
+    }
+    if (
+      ticketNumCheck == true &&
+      ticketPriceCheck == true &&
+      ticketRankCheck == true
+    ) {
+      return true;
+    } else {
       return false;
     }
-    if (ticketPrice.value > 100000) {
-      alert(`套票金額最高10萬元`);
-      ticketPrice.focus();
-      return false;
-    }
-    if (ticketRank.value > 10) {
-      alert(`套票星級最高10分`);
-      ticketRank.focus();
-      return false;
-    }
-    return true;
   }
 
   //推送資料進入陣列

@@ -14099,10 +14099,6 @@ label {
   color: #818A91;
 }
 
-.tavelFilterForm .filterResult {
-  color: #818A91;
-}
-
 @media (max-width: 1200px) {
   .travelCard__content .card__price {
     font-size: 16px;
