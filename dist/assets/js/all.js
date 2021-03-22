@@ -16,7 +16,28 @@ $(document).ready(function () {
   var ticketDescription = document.querySelector("#ticketDescription");
   var ticketInputBtn = document.querySelector(".form__inputBtn");
   var travelSelect = document.querySelector("#travelSelect");
-  var filterResult = document.querySelector("#filterResult"); //最一開始的顯示資料
+  var filterResult = document.querySelector("#filterResult");
+  var data; //初始化 axios 抓資料
+
+  function init() {
+    //等級一
+    // axios
+    // .get(
+    //   "https://raw.githubusercontent.com/hexschool/js-training/main/travelAPI-lv1.json"
+    // )
+    // .then(function (response) {
+    //   console.log(response);
+    //   data = response.data;
+    //   showTravelCard();
+    // });
+    //等級二
+    axios.get("https://raw.githubusercontent.com/hexschool/js-training/main/travelApi.json").then(function (response) {
+      data = response.data.data;
+      showTravelCard();
+    });
+  }
+
+  init(); //最一開始的顯示資料
 
   function showTravelCard() {
     var cardList = "";
@@ -26,9 +47,8 @@ $(document).ready(function () {
     }); // console.log(cardList)
 
     travelCardList.innerHTML = cardList;
-  }
+  } //抓取資料產生物件
 
-  showTravelCard(); //抓取資料產生物件
 
   function getTravelData() {
     var lastTravelData = data.length;
@@ -48,10 +68,7 @@ $(document).ready(function () {
 
   function seeDataValue(obj) {
     var objKeysArray = Object.keys(obj);
-    var objValuesArray = Object.values(obj);
-    var result = true;
-    console.log(objValuesArray);
-    console.log(objKeysArray); // 當某屬性為空字串，插入警告訊息
+    var objValuesArray = Object.values(obj); // 當某屬性為空字串，插入警告訊息
 
     objValuesArray.forEach(function (item, index) {
       if (index > 0) {
@@ -66,6 +83,10 @@ $(document).ready(function () {
           alertStr.innerHTML = "";
         }
       }
+    }); //如果有一個沒填寫就不會產生小卡
+
+    var result = objValuesArray.every(function (item) {
+      return item !== "";
     });
     return result;
   } //檢查input值
@@ -152,36 +173,44 @@ $(document).ready(function () {
   ticketInputBtn.addEventListener("click", addTravelCard);
   travelSelect.addEventListener("change", travelCardFilter);
 });
-"use strict";
-
-var data = [{
-  "id": 0,
-  "name": "肥宅心碎賞櫻3日",
-  "imgUrl": "https://images.unsplash.com/photo-1522383225653-ed111181a951?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1655&q=80",
-  "area": "高雄",
-  "description": "賞櫻花最佳去處。肥宅不得不去的超讚景點！",
-  "group": 87,
-  "price": 1400,
-  "rate": 10
-}, {
-  "id": 1,
-  "name": "貓空纜車雙程票",
-  "imgUrl": "https://images.unsplash.com/photo-1501393152198-34b240415948?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80",
-  "area": "台北",
-  "description": "乘坐以透明強化玻璃為地板的「貓纜之眼」水晶車廂，享受騰雲駕霧遨遊天際之感",
-  "group": 99,
-  "price": 240,
-  "rate": 2
-}, {
-  "id": 2,
-  "name": "台中谷關溫泉會1日",
-  "imgUrl": "https://images.unsplash.com/photo-1535530992830-e25d07cfa780?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80",
-  "area": "台中",
-  "description": "全館客房均提供谷關無色無味之優質碳酸原湯，並取用八仙山之山冷泉供蒞臨貴賓沐浴及飲水使用。",
-  "group": 20,
-  "price": 1765,
-  "rate": 7
-}]; // const data = [
+// const data = [
+//   {
+//     id: 0,
+//     name: "肥宅心碎賞櫻3日",
+//     imgUrl:
+//       "https://images.unsplash.com/photo-1522383225653-ed111181a951?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1655&q=80",
+//     area: "高雄",
+//     description: "賞櫻花最佳去處。肥宅不得不去的超讚景點！",
+//     group: 87,
+//     price: 1400,
+//     rate: 10,
+//   },
+//   {
+//     id: 1,
+//     name: "貓空纜車雙程票",
+//     imgUrl:
+//       "https://images.unsplash.com/photo-1501393152198-34b240415948?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80",
+//     area: "台北",
+//     description:
+//       "乘坐以透明強化玻璃為地板的「貓纜之眼」水晶車廂，享受騰雲駕霧遨遊天際之感",
+//     group: 99,
+//     price: 240,
+//     rate: 2,
+//   },
+//   {
+//     id: 2,
+//     name: "台中谷關溫泉會1日",
+//     imgUrl:
+//       "https://images.unsplash.com/photo-1535530992830-e25d07cfa780?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80",
+//     area: "台中",
+//     description:
+//       "全館客房均提供谷關無色無味之優質碳酸原湯，並取用八仙山之山冷泉供蒞臨貴賓沐浴及飲水使用。",
+//     group: 20,
+//     price: 1765,
+//     rate: 7,
+//   },
+// ];
+// const data = [
 //   {
 //     id: 0,
 //     name: '綠島自由行套裝行程',
@@ -249,4 +278,5 @@ var data = [{
 //     rate: 8.7,
 //   },
 // ]
+"use strict";
 //# sourceMappingURL=all.js.map

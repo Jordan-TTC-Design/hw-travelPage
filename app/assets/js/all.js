@@ -4,6 +4,7 @@ $(document).ready(() => {
   AOS.init({
     once: true,
   });
+
   const travelCardList = document.querySelector(".travelCardList");
   const ticketName = document.querySelector("#ticketName");
   const ticketPicUrl = document.querySelector("#ticketPicUrl");
@@ -15,6 +16,33 @@ $(document).ready(() => {
   const ticketInputBtn = document.querySelector(".form__inputBtn");
   const travelSelect = document.querySelector("#travelSelect");
   let filterResult = document.querySelector("#filterResult");
+  let data;
+
+  //初始化 axios 抓資料
+  function init() {
+    //等級一
+    // axios
+    // .get(
+    //   "https://raw.githubusercontent.com/hexschool/js-training/main/travelAPI-lv1.json"
+    // )
+    // .then(function (response) {
+    //   console.log(response);
+    //   data = response.data;
+    //   showTravelCard();
+    // });
+
+    //等級二
+    axios
+      .get(
+        "https://raw.githubusercontent.com/hexschool/js-training/main/travelApi.json"
+      )
+      .then(function (response) {
+        data = response.data.data;
+        showTravelCard();
+      });
+  }
+  init();
+
   //最一開始的顯示資料
   function showTravelCard() {
     let cardList = "";
@@ -45,7 +73,6 @@ $(document).ready(() => {
     // console.log(cardList)
     travelCardList.innerHTML = cardList;
   }
-  showTravelCard();
 
   //抓取資料產生物件
   function getTravelData() {
@@ -67,12 +94,9 @@ $(document).ready(() => {
   function seeDataValue(obj) {
     const objKeysArray = Object.keys(obj);
     const objValuesArray = Object.values(obj);
-    let result = true;
-    console.log(objValuesArray);
-    console.log(objKeysArray);
     // 當某屬性為空字串，插入警告訊息
     objValuesArray.forEach(function (item, index) {
-      if(index>0){
+      if (index > 0) {
         let inputName = objKeysArray[index];
         let alertStr = document.querySelector(
           `#alertMessage_ticket_${inputName}`
@@ -85,6 +109,10 @@ $(document).ready(() => {
           alertStr.innerHTML = "";
         }
       }
+    });
+    //如果有一個沒填寫就不會產生小卡
+    let result = objValuesArray.every(function (item) {
+      return item !== "";
     });
     return result;
   }
@@ -181,6 +209,7 @@ $(document).ready(() => {
     travelCardList.innerHTML = cardList;
     filterResult.textContent = `本次搜尋共 ${selectCard.length} 筆資料`;
   }
+
   ticketInputBtn.addEventListener("click", addTravelCard);
   travelSelect.addEventListener("change", travelCardFilter);
 });

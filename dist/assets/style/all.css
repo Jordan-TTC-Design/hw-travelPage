@@ -14080,16 +14080,9 @@ label {
 
 .tavelFilterForm {
   margin-bottom: 48px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
 }
 
 .tavelFilterForm .form__inputList {
-  width: 31.3333%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -14114,9 +14107,6 @@ label {
   .travelCard__content .card__price {
     font-size: 16px;
   }
-  .tavelFilterForm .form__inputList {
-    width: 48%;
-  }
 }
 
 @media (max-width: 768px) {
@@ -14128,7 +14118,6 @@ label {
             flex-direction: column;
   }
   .tavelFilterForm .form__inputList {
-    width: 100%;
     margin-right: 0;
     margin-bottom: 16px;
   }
