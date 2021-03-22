@@ -6,22 +6,22 @@ $(document).ready(function () {
   AOS.init({
     once: true
   });
-  var travelCardList = document.querySelector('.travelCardList');
-  var ticketName = document.querySelector('#ticketName');
-  var ticketPicUrl = document.querySelector('#ticketPicUrl');
-  var ticketPlace = document.querySelector('#ticketPlace');
-  var ticketPrice = document.querySelector('#ticketPrice');
-  var ticketNum = document.querySelector('#ticketNum');
-  var ticketRank = document.querySelector('#ticketRank');
-  var ticketDescript = document.querySelector('#ticketDescript');
-  var ticketInputBtn = document.querySelector('.form__inputBtn');
-  var travalSelect = document.querySelector('#travalSelect');
-  var filterResult = document.querySelector('#filterResult'); //最一開始的顯示資料
+  var travelCardList = document.querySelector(".travelCardList");
+  var ticketName = document.querySelector("#ticketName");
+  var ticketPicUrl = document.querySelector("#ticketPicUrl");
+  var ticketPlace = document.querySelector("#ticketPlace");
+  var ticketPrice = document.querySelector("#ticketPrice");
+  var ticketNum = document.querySelector("#ticketNum");
+  var ticketRank = document.querySelector("#ticketRank");
+  var ticketDescription = document.querySelector("#ticketDescription");
+  var ticketInputBtn = document.querySelector(".form__inputBtn");
+  var travelSelect = document.querySelector("#travelSelect");
+  var filterResult = document.querySelector("#filterResult"); //最一開始的顯示資料
 
   function showTravelCard() {
-    var cardList = '';
+    var cardList = "";
     data.forEach(function (item, index) {
-      var card = "<li data-aos=\"fade-up\" class=\"travelCard box-shadow\">\n        <p class=\"card__place\">".concat(item.area, "</p>\n        <div class=\"travelCard__img\">\n            <img src=\"https://picsum.photos/900/600?image=").concat(index + 10, "\" alt=\"\">\n        </div>\n      <div class=\"travelCard__content\">\n        <div>\n          <p class=\"card__rank\">").concat(item.rate, "</p>\n          <h4 class=\"card__name\">").concat(item.name, "</h4>\n          <p class=\"card__txt\">").concat(item.description, "</p>\n        </div>\n        <div class=\"card__info\">\n          <p class=\"crad__num\"><i class=\"icon fas fa-exclamation-circle\"></i>\u5269\u4E0B\u6700\u5F8C ").concat(item.group, " \u7D44</p>\n          <h5 class=\"card__price\"><span>TWD</span>$").concat(item.price, "</h5>\n        </div>\n      </div>\n    </li>");
+      var card = "<li data-aos=\"fade-up\" class=\"col-lg-4 col-md-6 col-12 travelCard\">\n      <div class =\"travelCard__container box-shadow\">\n          <p class=\"card__place\">".concat(item.area, "</p>\n          <div class=\"travelCard__img\">\n            <img src=\"https://picsum.photos/900/600?image=").concat(index + 10, "\" alt=\"\">\n          </div>\n        <div class=\"travelCard__content\">\n          <div>\n            <p class=\"card__rank\">").concat(item.rate, "</p>\n            <h4 class=\"card__name\">").concat(item.name, "</h4>\n            <p class=\"card__txt\">").concat(item.description, "</p>\n          </div>\n          <div class=\"card__info\">\n            <p class=\"card__num\"><i class=\"icon fas fa-exclamation-circle\"></i>\u5269\u4E0B\u6700\u5F8C ").concat(item.group, " \u7D44</p>\n            <h5 class=\"card__price\"><span>TWD</span>$").concat(item.price, "</h5>\n          </div>\n        </div>\n      </div>\n    </li>");
       cardList += card;
     }); // console.log(cardList)
 
@@ -31,54 +31,43 @@ $(document).ready(function () {
   showTravelCard(); //抓取資料產生物件
 
   function getTravelData() {
-    var lastTravelData = data.length - 1;
+    var lastTravelData = data.length;
     var obj = {};
     obj.id = lastTravelData;
     obj.name = ticketName.value;
     obj.imgUrl = "https://picsum.photos/900/600?image=".concat(lastTravelData + 10);
     obj.area = ticketPlace.value;
-    obj.description = ticketDescript.value;
+    obj.description = ticketDescription.value;
     obj.group = "".concat(ticketNum.value);
     obj.price = ticketPrice.value;
-    obj.rate = ticketRank.value;
-    formClean();
+    obj.rate = ticketRank.value; // formClean();
+
     return obj;
-  }
+  } //檢查表單空白
 
-  ; //檢查表單空白
 
-  function checkFormBlank() {
-    if (ticketName.value == '') {
-      alert('套票名稱未填');
-      ticketName.focus();
-      return false;
-    } else if (ticketPicUrl.value == '') {
-      alert('圖片網址未填');
-      ticketPicUrl.focus();
-      return false;
-    } else if (ticketPlace.value == '') {
-      alert('景點地區未填');
-      ticketPlace.focus();
-      return false;
-    } else if (ticketPrice.value == '') {
-      alert('套票金額未填');
-      ticketPrice.focus();
-      return false;
-    } else if (ticketNum.value == '') {
-      alert('套票組數未填');
-      ticketNum.focus();
-      return false;
-    } else if (ticketRank.value == '') {
-      alert('套票星級未填');
-      ticketRank.focus();
-      return false;
-    } else if (ticketDescript.value == '') {
-      alert('套票描述未填');
-      ticketDescript.focus();
-      return false;
-    }
+  function seeDataValue(obj) {
+    var objKeysArray = Object.keys(obj);
+    var objValuesArray = Object.values(obj);
+    var result = true;
+    console.log(objValuesArray);
+    console.log(objKeysArray); // 當某屬性為空字串，插入警告訊息
 
-    return true;
+    objValuesArray.forEach(function (item, index) {
+      if (index > 0) {
+        var inputName = objKeysArray[index];
+        var alertStr = document.querySelector("#alertMessage_ticket_".concat(inputName));
+
+        if (item == "") {
+          result = true;
+          alertStr.innerHTML = "<i class=\"fas fa-exclamation-circle\"></i><span>\u6B64\u6B04\u5FC5\u586B!</span>";
+        } else {
+          result = false;
+          alertStr.innerHTML = "";
+        }
+      }
+    });
+    return result;
   } //檢查input值
 
 
@@ -105,17 +94,19 @@ $(document).ready(function () {
   } //推送資料進入陣列
 
 
-  function addTravelCard() {
-    var checkState = checkFormBlank();
-    var FormLimit = checkFormLimit(); // console.log(checkState)
+  function addTravelCard(event) {
+    event.preventDefault();
+    var obj = getTravelData();
+    console.log(obj);
+    var checkState = seeDataValue(obj);
+    var FormLimit = checkFormLimit();
+    console.log(checkState);
 
     if (checkState == false) {
       return;
     } else if (FormLimit == false) {
       return;
     } else if (checkState == true && FormLimit == true) {
-      var obj = getTravelData(); // console.log(obj)
-
       data.push(obj); // console.log(obj)
 
       showTravelCard();
@@ -124,21 +115,21 @@ $(document).ready(function () {
 
 
   function formClean() {
-    ticketName.value = '';
-    ticketPlace.value = '';
-    ticketDescript.value = '';
-    ticketNum.value = '';
-    ticketPrice.value = '';
-    ticketRank.value = '';
-    ticketPicUrl.value = '';
+    ticketName.value = "";
+    ticketPlace.value = "";
+    ticketDescription.value = "";
+    ticketNum.value = "";
+    ticketPrice.value = "";
+    ticketRank.value = "";
+    ticketPicUrl.value = "";
   } //塞選卡片
 
 
-  function travalCardFilter() {
-    var targetPlace = travalSelect.value;
+  function travelCardFilter() {
+    var targetPlace = travelSelect.value;
     var selectCard = [];
 
-    if (targetPlace !== '不限') {
+    if (targetPlace !== "不限") {
       selectCard = data.filter(function (item) {
         return item.area === targetPlace;
       });
@@ -148,9 +139,9 @@ $(document).ready(function () {
       });
     }
 
-    var cardList = '';
+    var cardList = "";
     selectCard.forEach(function (item, index) {
-      var card = "<li data-aos=\"fade-up\" class=\"travelCard box-shadow\">\n          <p class=\"card__place\">".concat(item.area, "</p>\n          <div class=\"travelCard__img\">\n              <img src=\"https://picsum.photos/900/600?image=").concat(index + 10, "\" alt=\"\">\n          </div>\n        <div class=\"travelCard__content\">\n          <div>\n            <p class=\"card__rank\">").concat(item.rate, "</p>\n            <h4 class=\"card__name\">").concat(item.name, "</h4>\n            <p class=\"card__txt\">").concat(item.description, "</p>\n          </div>\n          <div class=\"card__info\">\n            <p class=\"crad__num\"><i class=\"icon fas fa-exclamation-circle\"></i> \u5269\u4E0B\u6700\u5F8C ").concat(item.group, " \u7D44</p>\n            <h5 class=\"card__price\"><span>TWD</span>$").concat(item.price, "</h5>\n          </div>\n        </div>\n      </li>");
+      var card = "<li data-aos=\"fade-up\" class=\"col-lg-4 col-md-6 col-12 travelCard\">\n      <div class =\"travelCard__container box-shadow\">\n          <p class=\"card__place\">".concat(item.area, "</p>\n          <div class=\"travelCard__img\">\n            <img src=\"https://picsum.photos/900/600?image=").concat(index + 10, "\" alt=\"\">\n          </div>\n        <div class=\"travelCard__content\">\n          <div>\n            <p class=\"card__rank\">").concat(item.rate, "</p>\n            <h4 class=\"card__name\">").concat(item.name, "</h4>\n            <p class=\"card__txt\">").concat(item.description, "</p>\n          </div>\n          <div class=\"card__info\">\n            <p class=\"card__num\"><i class=\"icon fas fa-exclamation-circle\"></i>\u5269\u4E0B\u6700\u5F8C ").concat(item.group, " \u7D44</p>\n            <h5 class=\"card__price\"><span>TWD</span>$").concat(item.price, "</h5>\n          </div>\n        </div>\n      </div>\n    </li>");
       cardList += card;
     }); // console.log(cardList)
 
@@ -158,8 +149,8 @@ $(document).ready(function () {
     filterResult.textContent = "\u672C\u6B21\u641C\u5C0B\u5171 ".concat(selectCard.length, " \u7B46\u8CC7\u6599");
   }
 
-  ticketInputBtn.addEventListener('click', addTravelCard);
-  travalSelect.addEventListener('change', travalCardFilter);
+  ticketInputBtn.addEventListener("click", addTravelCard);
+  travelSelect.addEventListener("change", travelCardFilter);
 });
 "use strict";
 
@@ -258,24 +249,4 @@ var data = [{
 //     rate: 8.7,
 //   },
 // ]
-"use strict";
-
-var mySwiper = new Swiper('.swiper-container', {
-  // Optional parameters
-  direction: 'vertical',
-  loop: true,
-  // If we need pagination
-  pagination: {
-    el: '.swiper-pagination'
-  },
-  // Navigation arrows
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev'
-  },
-  // And if we need scrollbar
-  scrollbar: {
-    el: '.swiper-scrollbar'
-  }
-});
 //# sourceMappingURL=all.js.map

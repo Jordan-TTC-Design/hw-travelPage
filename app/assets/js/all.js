@@ -3,164 +3,27 @@ $(document).ready(() => {
   //aos套件
   AOS.init({
     once: true,
-  })
-  const travelCardList = document.querySelector('.travelCardList')
-  const ticketName = document.querySelector('#ticketName')
-  const ticketPicUrl = document.querySelector('#ticketPicUrl')
-  const ticketPlace = document.querySelector('#ticketPlace')
-  const ticketPrice = document.querySelector('#ticketPrice')
-  const ticketNum = document.querySelector('#ticketNum')
-  const ticketRank = document.querySelector('#ticketRank')
-  const ticketDescript = document.querySelector('#ticketDescript')
-  const ticketInputBtn =document.querySelector('.form__inputBtn')
-  const travalSelect =document.querySelector('#travalSelect')
-  let  filterResult  = document.querySelector('#filterResult')
+  });
+  const travelCardList = document.querySelector(".travelCardList");
+  const ticketName = document.querySelector("#ticketName");
+  const ticketPicUrl = document.querySelector("#ticketPicUrl");
+  const ticketPlace = document.querySelector("#ticketPlace");
+  const ticketPrice = document.querySelector("#ticketPrice");
+  const ticketNum = document.querySelector("#ticketNum");
+  const ticketRank = document.querySelector("#ticketRank");
+  const ticketDescription = document.querySelector("#ticketDescription");
+  const ticketInputBtn = document.querySelector(".form__inputBtn");
+  const travelSelect = document.querySelector("#travelSelect");
+  let filterResult = document.querySelector("#filterResult");
   //最一開始的顯示資料
-  function showTravelCard(){
-    let cardList = '';
+  function showTravelCard() {
+    let cardList = "";
     data.forEach(function (item, index) {
-      let card = `<li data-aos="fade-up" class="travelCard box-shadow">
-        <p class="card__place">${item.area}</p>
-        <div class="travelCard__img">
-            <img src="https://picsum.photos/900/600?image=${index+10}" alt="">
-        </div>
-      <div class="travelCard__content">
-        <div>
-          <p class="card__rank">${item.rate}</p>
-          <h4 class="card__name">${item.name}</h4>
-          <p class="card__txt">${item.description}</p>
-        </div>
-        <div class="card__info">
-          <p class="crad__num"><i class="icon fas fa-exclamation-circle"></i>剩下最後 ${item.group} 組</p>
-          <h5 class="card__price"><span>TWD</span>$${item.price}</h5>
-        </div>
-      </div>
-    </li>`
-      cardList += card
-    })
-    // console.log(cardList)
-    travelCardList.innerHTML = cardList
-  }
-  showTravelCard();
-
-  //抓取資料產生物件
-  function getTravelData(){
-      let lastTravelData = data.length-1
-      const obj ={}
-      obj.id = lastTravelData
-      obj.name = ticketName.value
-      obj.imgUrl = `https://picsum.photos/900/600?image=${lastTravelData+10}`
-      obj.area = ticketPlace.value
-      obj.description = ticketDescript.value
-      obj.group = `${ticketNum.value}`
-      obj.price = ticketPrice.value
-      obj.rate = ticketRank.value
-      formClean()
-      return obj;
-  };
-
-//檢查表單空白
-function checkFormBlank(){
-  if(ticketName.value==''){
-    alert('套票名稱未填');
-    ticketName.focus();
-    return false;
-  }else if(ticketPicUrl.value==''){
-    alert('圖片網址未填');
-    ticketPicUrl.focus();
-    return false;
-  }else if(ticketPlace.value==''){
-    alert('景點地區未填');
-    ticketPlace.focus();
-    return false;
-  }else if(ticketPrice.value==''){
-    alert('套票金額未填');
-    ticketPrice.focus();
-    return false;
-  }else if(ticketNum.value==''){
-    alert('套票組數未填');
-    ticketNum.focus();
-    return false;
-  }else if(ticketRank.value==''){
-    alert('套票星級未填');
-    ticketRank.focus();
-    return false;
-  }else if(ticketDescript.value==''){
-    alert('套票描述未填');
-    ticketDescript.focus();
-    return false;
-  }
-  return true;
-}
-
-//檢查input值
-function checkFormLimit(){
-  if(ticketNum.value>100){
-    alert(`套票組數最多99組`)
-    ticketNum.focus();
-    return false;   
-  }
-  if(ticketPrice.value>100000){
-    alert(`套票金額最高10萬元`)
-    ticketPrice.focus();
-    return false;
-  }
-  if(ticketRank.value>10){
-    alert(`套票星級最高10分`)
-    ticketRank.focus();
-    return false;
-  }
-  return true;
-}
-
-  //推送資料進入陣列
-  function addTravelCard(){
-    let checkState = checkFormBlank()
-    let FormLimit = checkFormLimit()
-    // console.log(checkState)
-    if(checkState == false){
-      return
-    }else if(FormLimit==false){
-      return
-    }else if(checkState == true && FormLimit==true){
-      let obj = getTravelData()
-      // console.log(obj)
-      data.push(obj)
-      // console.log(obj)
-      showTravelCard()
-    }
-  }
-
-  //清除input
-  function formClean(){
-    ticketName.value = ''
-    ticketPlace.value =''
-    ticketDescript.value =''
-    ticketNum.value = ''
-    ticketPrice.value = ''
-    ticketRank.value =''
-    ticketPicUrl.value = ''
-  }
-
-  //塞選卡片
-  function travalCardFilter(){
-    let targetPlace = travalSelect.value
-    let selectCard =[];
-    if(targetPlace !=='不限'){
-       selectCard = data.filter(function(item){
-        return item.area === targetPlace
-      });
-    }else{
-       selectCard = data.filter(function(item){
-        return item
-      });
-    }
-    let cardList = '';
-      selectCard.forEach(function (item, index) {
-        let card = `<li data-aos="fade-up" class="travelCard box-shadow">
+      let card = `<li data-aos="fade-up" class="col-lg-4 col-md-6 col-12 travelCard">
+      <div class ="travelCard__container box-shadow">
           <p class="card__place">${item.area}</p>
           <div class="travelCard__img">
-              <img src="https://picsum.photos/900/600?image=${index+10}" alt="">
+            <img src="https://picsum.photos/900/600?image=${index + 10}" alt="">
           </div>
         <div class="travelCard__content">
           <div>
@@ -169,18 +32,155 @@ function checkFormLimit(){
             <p class="card__txt">${item.description}</p>
           </div>
           <div class="card__info">
-            <p class="crad__num"><i class="icon fas fa-exclamation-circle"></i> 剩下最後 ${item.group} 組</p>
+            <p class="card__num"><i class="icon fas fa-exclamation-circle"></i>剩下最後 ${
+              item.group
+            } 組</p>
             <h5 class="card__price"><span>TWD</span>$${item.price}</h5>
           </div>
         </div>
-      </li>`
-        cardList += card
-      })
-      // console.log(cardList)
-      travelCardList.innerHTML = cardList
-      filterResult.textContent = `本次搜尋共 ${selectCard.length} 筆資料`
-    
+      </div>
+    </li>`;
+      cardList += card;
+    });
+    // console.log(cardList)
+    travelCardList.innerHTML = cardList;
   }
-  ticketInputBtn.addEventListener('click',addTravelCard)
-  travalSelect.addEventListener('change',travalCardFilter)
-})
+  showTravelCard();
+
+  //抓取資料產生物件
+  function getTravelData() {
+    let lastTravelData = data.length;
+    const obj = {};
+    obj.id = lastTravelData;
+    obj.name = ticketName.value;
+    obj.imgUrl = `https://picsum.photos/900/600?image=${lastTravelData + 10}`;
+    obj.area = ticketPlace.value;
+    obj.description = ticketDescription.value;
+    obj.group = `${ticketNum.value}`;
+    obj.price = ticketPrice.value;
+    obj.rate = ticketRank.value;
+    // formClean();
+    return obj;
+  }
+
+  //檢查表單空白
+  function seeDataValue(obj) {
+    const objKeysArray = Object.keys(obj);
+    const objValuesArray = Object.values(obj);
+    let result = true;
+    console.log(objValuesArray);
+    console.log(objKeysArray);
+    // 當某屬性為空字串，插入警告訊息
+    objValuesArray.forEach(function (item, index) {
+      if(index>0){
+        let inputName = objKeysArray[index];
+        let alertStr = document.querySelector(
+          `#alertMessage_ticket_${inputName}`
+        );
+        if (item == "") {
+          result = true;
+          alertStr.innerHTML = `<i class="fas fa-exclamation-circle"></i><span>此欄必填!</span>`;
+        } else {
+          result = false;
+          alertStr.innerHTML = "";
+        }
+      }
+    });
+    return result;
+  }
+
+  //檢查input值
+  function checkFormLimit() {
+    if (ticketNum.value > 100) {
+      alert(`套票組數最多99組`);
+      ticketNum.focus();
+      return false;
+    }
+    if (ticketPrice.value > 100000) {
+      alert(`套票金額最高10萬元`);
+      ticketPrice.focus();
+      return false;
+    }
+    if (ticketRank.value > 10) {
+      alert(`套票星級最高10分`);
+      ticketRank.focus();
+      return false;
+    }
+    return true;
+  }
+
+  //推送資料進入陣列
+  function addTravelCard(event) {
+    event.preventDefault();
+    let obj = getTravelData();
+    console.log(obj);
+    let checkState = seeDataValue(obj);
+    let FormLimit = checkFormLimit();
+    console.log(checkState);
+    if (checkState == false) {
+      return;
+    } else if (FormLimit == false) {
+      return;
+    } else if (checkState == true && FormLimit == true) {
+      data.push(obj);
+      // console.log(obj)
+      showTravelCard();
+    }
+  }
+
+  //清除input
+  function formClean() {
+    ticketName.value = "";
+    ticketPlace.value = "";
+    ticketDescription.value = "";
+    ticketNum.value = "";
+    ticketPrice.value = "";
+    ticketRank.value = "";
+    ticketPicUrl.value = "";
+  }
+
+  //塞選卡片
+  function travelCardFilter() {
+    let targetPlace = travelSelect.value;
+    let selectCard = [];
+    if (targetPlace !== "不限") {
+      selectCard = data.filter(function (item) {
+        return item.area === targetPlace;
+      });
+    } else {
+      selectCard = data.filter(function (item) {
+        return item;
+      });
+    }
+    let cardList = "";
+    selectCard.forEach(function (item, index) {
+      let card = `<li data-aos="fade-up" class="col-lg-4 col-md-6 col-12 travelCard">
+      <div class ="travelCard__container box-shadow">
+          <p class="card__place">${item.area}</p>
+          <div class="travelCard__img">
+            <img src="https://picsum.photos/900/600?image=${index + 10}" alt="">
+          </div>
+        <div class="travelCard__content">
+          <div>
+            <p class="card__rank">${item.rate}</p>
+            <h4 class="card__name">${item.name}</h4>
+            <p class="card__txt">${item.description}</p>
+          </div>
+          <div class="card__info">
+            <p class="card__num"><i class="icon fas fa-exclamation-circle"></i>剩下最後 ${
+              item.group
+            } 組</p>
+            <h5 class="card__price"><span>TWD</span>$${item.price}</h5>
+          </div>
+        </div>
+      </div>
+    </li>`;
+      cardList += card;
+    });
+    // console.log(cardList)
+    travelCardList.innerHTML = cardList;
+    filterResult.textContent = `本次搜尋共 ${selectCard.length} 筆資料`;
+  }
+  ticketInputBtn.addEventListener("click", addTravelCard);
+  travelSelect.addEventListener("change", travelCardFilter);
+});

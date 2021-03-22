@@ -13771,7 +13771,7 @@ label {
   margin: 0;
 }
 
-.addTicketPannel {
+.addTicketPanel {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -13881,8 +13881,13 @@ label {
   padding: 10px 48px;
 }
 
+.alertMessage {
+  margin-bottom: 16px;
+  color: red;
+}
+
 @media (max-width: 992px) {
-  .addTicketPannel {
+  .addTicketPanel {
     padding: 36px;
   }
   .addTicketForm {
@@ -13915,7 +13920,7 @@ label {
 }
 
 @media (max-width: 768px) {
-  .addTicketPannel {
+  .addTicketPanel {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
@@ -13938,7 +13943,7 @@ label {
 }
 
 .mainArea {
-  background-color: #F7F7F7;
+  background-color: #f7f7f7;
   padding: 56px 0;
 }
 
@@ -13951,6 +13956,10 @@ label {
 }
 
 .travelCard {
+  margin-bottom: 36px;
+}
+
+.travelCard__container {
   background-color: #fff;
   border-radius: 4px;
   position: relative;
@@ -13961,17 +13970,15 @@ label {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  width: 31.3333%;
-  margin-bottom: 36px;
-  margin-right: 2%;
+  height: 100%;
 }
 
-.travelCard .card__place {
+.travelCard__container .card__place {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   padding: 8px 20px;
-  background-color: #64C3BF;
+  background-color: #64c3bf;
   color: #fff;
   border-radius: 0px 4px 4px 0px;
   position: absolute;
@@ -13987,6 +13994,7 @@ label {
   height: 180px;
   -o-object-fit: cover;
      object-fit: cover;
+  border-radius: 4px 4px 0 0;
 }
 
 .travelCard__content {
@@ -14050,7 +14058,7 @@ label {
   color: #00807E;
 }
 
-.travelCard__content .crad__num .icon {
+.travelCard__content .card__num .icon {
   margin-right: 4px;
 }
 
@@ -14091,10 +14099,10 @@ label {
   margin-right: 2%;
 }
 
-.tavelFilterForm .form__inputList .travalSelect {
+.tavelFilterForm .form__inputList .travelSelect {
   width: 75%;
   height: 38px;
-  border: 1px solid #CED4DA;
+  border: 1px solid #ced4da;
   color: #818A91;
 }
 
@@ -14106,18 +14114,8 @@ label {
   .travelCard__content .card__price {
     font-size: 16px;
   }
-  .travelCard {
-    width: 48%;
-    margin-right: 2%;
-  }
   .tavelFilterForm .form__inputList {
     width: 48%;
-  }
-}
-
-@media (max-width: 576px) {
-  .travelCard__content .card__name {
-    font-size: 20px;
   }
 }
 
@@ -14134,7 +14132,7 @@ label {
     margin-right: 0;
     margin-bottom: 16px;
   }
-  .tavelFilterForm .form__inputList .travalSelect {
+  .tavelFilterForm .form__inputList .travelSelect {
     width: 100%;
   }
   .travelCardList {
@@ -14143,8 +14141,16 @@ label {
             justify-content: space-between;
   }
   .travelCard {
-    width: 100%;
-    margin-right: 0;
+    margin-bottom: 36px;
+  }
+  .travelCard:last-child {
+    margin-bottom: 0px;
+  }
+}
+
+@media (max-width: 576px) {
+  .travelCard__content .card__name {
+    font-size: 20px;
   }
 }
 

@@ -9,7 +9,7 @@ current: index
   <div class="container">
     <div class="row d-flex justify-content-center">
       <div class="col-xl-10 col-12">
-        <div class="addTicketPannel d-flex box-shadow">
+        <div class="addTicketPanel d-flex box-shadow">
           <div class="addTicketPicBox">
             <img src="https://i.imgur.com/iRssPpJ.png" alt="吉祥物" />
             <img src="https://i.imgur.com/vJt0znH.png" alt="活動名稱" />
@@ -26,8 +26,10 @@ current: index
                 id="ticketName"
                 name="套票名稱"
                 placeholder="請輸入套票名稱"
-                required
               />
+            </div>
+            <div class="alertMessage">
+              <p id="alertMessage_ticket_name"></p>
             </div>
             <div class="form__inputList mb-4">
               <label class="form__label" for="ticketPicUrl">圖片網址</label>
@@ -37,12 +39,14 @@ current: index
                 id="ticketPicUrl"
                 name="圖片網址"
                 placeholder="請填寫圖片網址"
-                required
               />
+            </div>
+            <div class="alertMessage">
+              <p id="alertMessage_ticket_imgUrl"></p>
             </div>
             <div class="form__inputList mb-4">
               <label class="form__label" for="ticketPlace">景點地區</label>
-              <select class="form__input" id="ticketPlace" name="景點地區" required>
+              <select class="form__input" id="ticketPlace" name="景點地區">
                 <option class="text-light-gray" value="" disabled selected>
                   請選擇景點地區
                 </option>
@@ -51,17 +55,23 @@ current: index
                 <option value="高雄">高雄</option>
               </select>
             </div>
+            <div class="alertMessage">
+              <p id="alertMessage_ticket_area"></p>
+            </div>
             <div class="form__inputList mb-4">
-              <label class="form__label" for="ticketPrice" >套票金額</label>
+              <label class="form__label" for="ticketPrice">套票金額</label>
               <input
                 class="form__input"
                 type="number"
                 id="ticketPrice"
                 name="套票金額"
                 placeholder="請選擇套票金額(最多10萬元)"
-                min="1" max="100000"
-                required
+                min="1"
+                max="100000"
               />
+            </div>
+            <div class="alertMessage">
+              <p id="alertMessage_ticket_price"></p>
             </div>
             <div class="form__inputList mb-4">
               <label class="form__label" for="ticketNum">套票組數</label>
@@ -72,8 +82,12 @@ current: index
                 name="套票組數"
                 placeholder="請填寫套票組數(最多99組)"
                 required
-                min="1" max="99"
+                min="1"
+                max="99"
               />
+            </div>
+            <div class="alertMessage">
+              <p id="alertMessage_ticket_group"></p>
             </div>
             <div class="form__inputList mb-4">
               <label class="form__label" for="ticketRank">套票星級</label>
@@ -83,26 +97,33 @@ current: index
                 id="ticketRank"
                 name="套票星級"
                 placeholder="請填寫套票星級(最多10級)"
-                required
-                min="1" max="10"
+                min="1"
+                max="10"
               />
             </div>
+            <div class="alertMessage">
+              <p id="alertMessage_ticket_rate"></p>
+            </div>
             <div class="form__inputList align-items-start mb-4">
-              <label class="form__label" for="ticketDescript">套票描述</label>
+              <label class="form__label" for="ticketDescription"
+                >套票描述</label
+              >
               <textarea
                 class="form__input form__textarea"
                 name="套票描述"
-                id="ticketDescript"
+                id="ticketDescription"
                 cols="30"
                 rows="10"
                 placeholder="請填寫套票描述(限100字)"
-                required
               ></textarea>
+            </div>
+            <div class="alertMessage">
+              <p id="alertMessage_ticket_description"></p>
             </div>
             <div class="form__inputList d-flex justify-content-end">
               <input
                 class="form__inputBtn btn btn-primary"
-                type="button"
+                type="submit"
                 value="新增套票"
               />
             </div>
@@ -118,7 +139,11 @@ current: index
       <form class="col-12 tavelFilterForm">
         <div class="form__inputList">
           <!-- <label class="form__label" for="ticketPlace ">景點地區</label> -->
-          <select class="travalSelect rounded" id="travalSelect" name="景點地區">
+          <select
+            class="travelSelect rounded"
+            id="travelSelect"
+            name="景點地區"
+          >
             <option class="text-light-gray" value="" disabled selected>
               地區搜尋
             </option>
@@ -128,31 +153,33 @@ current: index
             <option value="高雄">高雄</option>
           </select>
         </div>
-        <p class="filterResult" id="filterResult">
-        </p>
+        <p class="filterResult" id="filterResult"></p>
       </form>
-      </div>
-      <div class="row">
-      <ul class="col-12  travelCardList">
-        <!-- <li class="travelCard box-shadow">
+    </div>
+    <ul class="row travelCardList">
+      <li class="col-4 travelCard">
+        <div class="box-shadow">
           <p class="card__place">台北</p>
           <div class="travelCard__img">
-              <img src="https://i.imgur.com/QXa1fMZ.png" alt="">
+            <img src="https://i.imgur.com/QXa1fMZ.png" alt="" />
           </div>
-        <div class="travelCard__content">
-          <div>
-            <p class="card__rank">8.5</p>
-            <h4 class="card__name">綠島自由行套裝行程</h4>
-            <p class="card__txt">嚴選超高CP值綠島自由行套裝行程，多種綠島套裝組合，提供台東綠島來回船票、綠島環島機車、綠島民宿住宿，行程加贈『綠島浮潛體驗』以及『綠島生態導覽』，讓你用輕鬆的綠島套裝自由行，也能深度認識綠島在地文化。</p>
-          </div>
-          <div class="card__info">
-            <p class="crad__num"><i class="icon fas fa-exclamation-circle"></i>剩下最後 8 組</p>
-            <h5 class="card__price"><span>TWD</span>$1,280</h5>
+          <div class="travelCard__content">
+            <div>
+              <p class="card__rank">8.5</p>
+              <h4 class="card__name">綠島自由行套裝行程</h4>
+              <p class="card__txt">
+                嚴選超高CP值綠島自由行套裝行程，多種綠島套裝組合，提供台東綠島來回船票、綠島環島機車、綠島民宿住宿，行程加贈『綠島浮潛體驗』以及『綠島生態導覽』，讓你用輕鬆的綠島套裝自由行，也能深度認識綠島在地文化。
+              </p>
+            </div>
+            <div class="card__info">
+              <p class="crad__num">
+                <i class="icon fas fa-exclamation-circle"></i>剩下最後 8 組
+              </p>
+              <h5 class="card__price"><span>TWD</span>$1,280</h5>
+            </div>
           </div>
         </div>
-      </li> -->
-      </ul>
-      </div>
-    </div>
+      </li>
+    </ul>
   </div>
 </section>
