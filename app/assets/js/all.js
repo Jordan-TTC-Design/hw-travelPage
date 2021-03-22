@@ -86,7 +86,7 @@ $(document).ready(() => {
     obj.group = `${ticketNum.value}`;
     obj.price = ticketPrice.value;
     obj.rate = ticketRank.value;
-    // formClean();
+    formClean();
     return obj;
   }
 
