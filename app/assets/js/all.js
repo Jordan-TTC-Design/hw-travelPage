@@ -102,10 +102,8 @@ $(document).ready(() => {
           `#alertMessage_ticket_${inputName}`
         );
         if (item == "") {
-          result = true;
           alertStr.innerHTML = `<i class="fas fa-exclamation-circle"></i><span>此欄必填!</span>`;
         } else {
-          result = false;
           alertStr.innerHTML = "";
         }
       }
