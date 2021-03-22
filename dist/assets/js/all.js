@@ -60,8 +60,7 @@ $(document).ready(function () {
     obj.description = ticketDescription.value;
     obj.group = "".concat(ticketNum.value);
     obj.price = ticketPrice.value;
-    obj.rate = ticketRank.value; // formClean();
-
+    obj.rate = ticketRank.value;
     return obj;
   } //檢查表單空白
 
@@ -139,6 +138,7 @@ $(document).ready(function () {
       data.push(obj); // console.log(obj)
 
       showTravelCard();
+      formClean();
     }
   } //清除input
 

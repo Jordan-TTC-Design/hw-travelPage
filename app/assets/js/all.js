@@ -86,7 +86,6 @@ $(document).ready(() => {
     obj.group = `${ticketNum.value}`;
     obj.price = ticketPrice.value;
     obj.rate = ticketRank.value;
-    formClean();
     return obj;
   }
 
@@ -162,6 +161,7 @@ $(document).ready(() => {
       data.push(obj);
       // console.log(obj)
       showTravelCard();
+      formClean();
     }
   }
 
