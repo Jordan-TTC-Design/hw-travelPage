@@ -1,186 +1,239 @@
 "use strict";
 
-$(document).ready(function () {
-  // console.log('Hello Bootstrap4');
-  //aos套件
-  AOS.init({
-    once: true
-  });
-  var travelCardList = document.querySelector(".travelCardList");
-  var ticketName = document.querySelector("#ticketName");
-  var ticketPicUrl = document.querySelector("#ticketPicUrl");
-  var ticketPlace = document.querySelector("#ticketPlace");
-  var ticketPrice = document.querySelector("#ticketPrice");
-  var ticketNum = document.querySelector("#ticketNum");
-  var ticketRank = document.querySelector("#ticketRank");
-  var ticketDescription = document.querySelector("#ticketDescription");
-  var ticketInputBtn = document.querySelector(".form__inputBtn");
-  var travelSelect = document.querySelector("#travelSelect");
-  var filterResult = document.querySelector("#filterResult");
-  var data; //初始化 axios 抓資料
-
-  function init() {
-    //等級一
-    // axios
-    // .get(
-    //   "https://raw.githubusercontent.com/hexschool/js-training/main/travelAPI-lv1.json"
-    // )
-    // .then(function (response) {
-    //   console.log(response);
-    //   data = response.data;
-    //   showTravelCard();
-    // });
-    //等級二
-    axios.get("https://raw.githubusercontent.com/hexschool/js-training/main/travelApi.json").then(function (response) {
-      data = response.data.data;
-      showTravelCard();
-    });
-  }
-
-  init(); //最一開始的顯示資料
-
-  function showTravelCard() {
-    var cardList = "";
-    data.forEach(function (item, index) {
-      var card = "<li data-aos=\"fade-up\" class=\"col-lg-4 col-md-6 col-12 travelCard\">\n      <div class =\"travelCard__container box-shadow\">\n          <p class=\"card__place\">".concat(item.area, "</p>\n          <div class=\"travelCard__img\">\n            <img src=\"https://picsum.photos/900/600?image=").concat(index + 10, "\" alt=\"\">\n          </div>\n        <div class=\"travelCard__content\">\n          <div>\n            <p class=\"card__rank\">").concat(item.rate, "</p>\n            <h4 class=\"card__name\">").concat(item.name, "</h4>\n            <p class=\"card__txt\">").concat(item.description, "</p>\n          </div>\n          <div class=\"card__info\">\n            <p class=\"card__num\"><i class=\"icon fas fa-exclamation-circle\"></i>\u5269\u4E0B\u6700\u5F8C ").concat(item.group, " \u7D44</p>\n            <h5 class=\"card__price\"><span>TWD</span>$").concat(item.price, "</h5>\n          </div>\n        </div>\n      </div>\n    </li>");
-      cardList += card;
-    }); // console.log(cardList)
-
-    travelCardList.innerHTML = cardList;
-  } //抓取資料產生物件
-
-
-  function getTravelData() {
-    var lastTravelData = data.length;
-    var obj = {};
-    obj.id = lastTravelData;
-    obj.name = ticketName.value;
-    obj.imgUrl = "https://picsum.photos/900/600?image=".concat(lastTravelData + 10);
-    obj.area = ticketPlace.value;
-    obj.description = ticketDescription.value;
-    obj.group = "".concat(ticketNum.value);
-    obj.price = ticketPrice.value;
-    obj.rate = ticketRank.value;
-    return obj;
-  } //檢查表單空白
-
-
-  function seeDataValue(obj) {
-    var objKeysArray = Object.keys(obj);
-    var objValuesArray = Object.values(obj); // 當某屬性為空字串，插入警告訊息
-
-    objValuesArray.forEach(function (item, index) {
-      if (index > 0) {
-        var inputName = objKeysArray[index];
-        var alertStr = document.querySelector("#alertMessage_ticket_".concat(inputName));
-
-        if (item == "") {
-          alertStr.innerHTML = "<i class=\"fas fa-exclamation-circle\"></i><span>\u6B64\u6B04\u5FC5\u586B!</span>";
-        } else {
-          alertStr.innerHTML = "";
-        }
-      }
-    }); //如果有一個沒填寫就不會產生小卡
-
-    var result = objValuesArray.every(function (item) {
-      return item !== "";
-    });
-    return result;
-  } //檢查input值
-
-
-  function checkFormLimit() {
-    var ticketNumCheck = true;
-    var ticketPriceCheck = true;
-    var ticketRankCheck = true;
-
-    if (ticketNum.value <= 0 || ticketNum.value > 100) {
-      var alertStr = document.querySelector("#alertMessage_ticket_group");
-      alertStr.innerHTML = "<i class=\"fas fa-exclamation-circle\"></i><span>\u5957\u7968\u7D44\u6578\u9700\u65BC1~99\u7D44\u4E4B\u9593</span>";
-      ticketNumCheck = false;
-    }
-
-    if (ticketPrice.value <= 0 || ticketPrice.value > 100000) {
-      var _alertStr = document.querySelector("#alertMessage_ticket_price");
-
-      _alertStr.innerHTML = "<i class=\"fas fa-exclamation-circle\"></i><span>\u5957\u7968\u91D1\u984D\u9700\u65BC1~10\u842C\u5143\u4E4B\u9593</span>";
-      ticketPriceCheck = false;
-    }
-
-    if (ticketRank.value <= 0 || ticketRank.value > 10) {
-      var _alertStr2 = document.querySelector("#alertMessage_ticket_rate");
-
-      _alertStr2.innerHTML = "<i class=\"fas fa-exclamation-circle\"></i><span>\u5957\u7968\u661F\u7D1A\u9700\u65BC1~10\u7D1A\u4E4B\u9593</span>";
-      ticketRankCheck = false;
-    }
-
-    if (ticketNumCheck == true && ticketPriceCheck == true && ticketRankCheck == true) {
-      return true;
-    } else {
-      return false;
-    }
-  } //推送資料進入陣列
-
-
-  function addTravelCard(event) {
-    event.preventDefault();
-    var obj = getTravelData();
-    console.log(obj);
-    var checkState = seeDataValue(obj);
-    var FormLimit = checkFormLimit();
-    console.log(checkState);
-
-    if (checkState == false) {
-      return;
-    } else if (FormLimit == false) {
-      return;
-    } else if (checkState == true && FormLimit == true) {
-      data.push(obj); // console.log(obj)
-
-      showTravelCard();
-      formClean();
-    }
-  } //清除input
-
-
-  function formClean() {
-    ticketName.value = "";
-    ticketPlace.value = "";
-    ticketDescription.value = "";
-    ticketNum.value = "";
-    ticketPrice.value = "";
-    ticketRank.value = "";
-    ticketPicUrl.value = "";
-  } //塞選卡片
-
-
-  function travelCardFilter() {
-    var targetPlace = travelSelect.value;
-    var selectCard = [];
-
-    if (targetPlace !== "不限") {
-      selectCard = data.filter(function (item) {
-        return item.area === targetPlace;
-      });
-    } else {
-      selectCard = data.filter(function (item) {
-        return item;
-      });
-    }
-
-    var cardList = "";
-    selectCard.forEach(function (item, index) {
-      var card = "<li data-aos=\"fade-up\" class=\"col-lg-4 col-md-6 col-12 travelCard\">\n      <div class =\"travelCard__container box-shadow\">\n          <p class=\"card__place\">".concat(item.area, "</p>\n          <div class=\"travelCard__img\">\n            <img src=\"https://picsum.photos/900/600?image=").concat(index + 10, "\" alt=\"\">\n          </div>\n        <div class=\"travelCard__content\">\n          <div>\n            <p class=\"card__rank\">").concat(item.rate, "</p>\n            <h4 class=\"card__name\">").concat(item.name, "</h4>\n            <p class=\"card__txt\">").concat(item.description, "</p>\n          </div>\n          <div class=\"card__info\">\n            <p class=\"card__num\"><i class=\"icon fas fa-exclamation-circle\"></i>\u5269\u4E0B\u6700\u5F8C ").concat(item.group, " \u7D44</p>\n            <h5 class=\"card__price\"><span>TWD</span>$").concat(item.price, "</h5>\n          </div>\n        </div>\n      </div>\n    </li>");
-      cardList += card;
-    }); // console.log(cardList)
-
-    travelCardList.innerHTML = cardList;
-    filterResult.textContent = "\u672C\u6B21\u641C\u5C0B\u5171 ".concat(selectCard.length, " \u7B46\u8CC7\u6599");
-  }
-
-  ticketInputBtn.addEventListener("click", addTravelCard);
-  travelSelect.addEventListener("change", travelCardFilter);
+// console.log('Hello Bootstrap4');
+//aos套件
+AOS.init({
+  once: true
 });
+var travelCardList = document.querySelector(".travelCardList");
+var ticketName = document.querySelector("#ticketName");
+var ticketPicUrl = document.querySelector("#ticketPicUrl");
+var ticketPlace = document.querySelector("#ticketPlace");
+var ticketPrice = document.querySelector("#ticketPrice");
+var ticketNum = document.querySelector("#ticketNum");
+var ticketRank = document.querySelector("#ticketRank");
+var ticketDescription = document.querySelector("#ticketDescription");
+var ticketInputBtn = document.querySelector(".form__inputBtn");
+var travelSelect = document.querySelector("#travelSelect");
+var filterResult = document.querySelector("#filterResult");
+var data;
+var newData = []; //初始化 axios 抓資料
+
+function init() {
+  //等級二
+  axios.get("https://raw.githubusercontent.com/hexschool/js-training/main/travelApi.json").then(function (response) {
+    data = response.data.data;
+    showTravelCard();
+    c3Data();
+  });
+}
+
+init(); //最一開始的顯示資料
+
+function showTravelCard() {
+  var cardList = "";
+  data.forEach(function (item, index) {
+    var card = "<li data-aos=\"fade-up\" class=\"col-lg-4 col-md-6 col-12 travelCard\">\n          <div class =\"travelCard__container box-shadow\">\n              <p class=\"card__place\">".concat(item.area, "</p>\n              <div class=\"travelCard__img\">\n                <img src=\"https://picsum.photos/900/600?image=").concat(index + 10, "\" alt=\"\">\n              </div>\n            <div class=\"travelCard__content\">\n              <div>\n                <p class=\"card__rank\">").concat(item.rate, "</p>\n                <h4 class=\"card__name\">").concat(item.name, "</h4>\n                <p class=\"card__txt\">").concat(item.description, "</p>\n              </div>\n              <div class=\"card__info\">\n                <p class=\"card__num\"><i class=\"icon fas fa-exclamation-circle\"></i>\u5269\u4E0B\u6700\u5F8C ").concat(item.group, " \u7D44</p>\n                <h5 class=\"card__price\"><span>TWD</span>$").concat(item.price, "</h5>\n              </div>\n            </div>\n          </div>\n        </li>");
+    cardList += card;
+  }); // console.log(cardList)
+
+  travelCardList.innerHTML = cardList;
+} //推送資料進入陣列
+
+
+function addTravelCard(event) {
+  event.preventDefault();
+  var obj = getTravelData();
+  console.log(obj);
+  var checkState = seeDataValue(obj);
+  var FormLimit = checkFormLimit();
+  console.log(checkState);
+
+  if (checkState == false) {
+    return;
+  } else if (FormLimit == false) {
+    return;
+  } else if (checkState == true && FormLimit == true) {
+    data.push(obj); // console.log(obj)
+
+    showTravelCard();
+    c3Data();
+    formClean();
+  }
+} //開始整理c3.js需要的data
+//計算各地區總數量
+
+
+function c3Data() {
+  newData = [];
+  var locationNum = {};
+  data.forEach(function (item, index) {
+    if (locationNum[item.area] == undefined) {
+      locationNum[item.area] = 1;
+    } else {
+      locationNum[item.area] += 1;
+    }
+  });
+  console.log(locationNum); //抓出物件屬性
+
+  var locationNameList = Object.keys(locationNum);
+  locationNameList.forEach(function (item) {
+    var array = [];
+    array.push(item);
+    array.push(locationNum[item]);
+    newData.push(array);
+  });
+  console.log(newData); //一定要透過參數傳入值
+
+  c3Render();
+}
+
+function c3Render() {
+  console.log(newData);
+  var chart = c3.generate({
+    bindto: "#chart",
+    // HTML 元素綁定
+    data: {
+      columns: newData,
+      type: "donut",
+      onclick: function onclick(d, i) {
+        console.log("onclick", d, i);
+      },
+      onmouseover: function onmouseover(d, i) {
+        console.log("onmouseover", d, i);
+      },
+      onmouseout: function onmouseout(d, i) {
+        console.log("onmouseout", d, i);
+      }
+    },
+    color: {
+      高雄: "#E68618",
+      台北: "#25C0C7",
+      台中: "#5151D3"
+    },
+    donut: {
+      title: "套票地區比重",
+      label: {
+        show: false
+      },
+      width: 15 // expand: false
+
+    }
+  });
+} //抓取資料產生物件
+
+
+function getTravelData() {
+  var lastTravelData = data.length;
+  var obj = {};
+  obj.id = lastTravelData;
+  obj.name = ticketName.value;
+  obj.imgUrl = "https://picsum.photos/900/600?image=".concat(lastTravelData + 10);
+  obj.area = ticketPlace.value;
+  obj.description = ticketDescription.value;
+  obj.group = "".concat(ticketNum.value);
+  obj.price = ticketPrice.value;
+  obj.rate = ticketRank.value;
+  return obj;
+} //其他功能
+//檢查表單空白
+
+
+function seeDataValue(obj) {
+  var objKeysArray = Object.keys(obj);
+  var objValuesArray = Object.values(obj); // 當某屬性為空字串，插入警告訊息
+
+  objValuesArray.forEach(function (item, index) {
+    if (index > 0) {
+      var inputName = objKeysArray[index];
+      var alertStr = document.querySelector("#alertMessage_ticket_".concat(inputName));
+
+      if (item == "") {
+        alertStr.innerHTML = "<i class=\"fas fa-exclamation-circle\"></i><span>\u6B64\u6B04\u5FC5\u586B!</span>";
+      } else {
+        alertStr.innerHTML = "";
+      }
+    }
+  }); //如果有一個沒填寫就不會產生小卡
+
+  var result = objValuesArray.every(function (item) {
+    return item !== "";
+  });
+  return result;
+} //檢查input值
+
+
+function checkFormLimit() {
+  var ticketNumCheck = true;
+  var ticketPriceCheck = true;
+  var ticketRankCheck = true;
+
+  if (ticketNum.value <= 0 || ticketNum.value > 100) {
+    var alertStr = document.querySelector("#alertMessage_ticket_group");
+    alertStr.innerHTML = "<i class=\"fas fa-exclamation-circle\"></i><span>\u5957\u7968\u7D44\u6578\u9700\u65BC1~99\u7D44\u4E4B\u9593</span>";
+    ticketNumCheck = false;
+  }
+
+  if (ticketPrice.value <= 0 || ticketPrice.value > 100000) {
+    var _alertStr = document.querySelector("#alertMessage_ticket_price");
+
+    _alertStr.innerHTML = "<i class=\"fas fa-exclamation-circle\"></i><span>\u5957\u7968\u91D1\u984D\u9700\u65BC1~10\u842C\u5143\u4E4B\u9593</span>";
+    ticketPriceCheck = false;
+  }
+
+  if (ticketRank.value <= 0 || ticketRank.value > 10) {
+    var _alertStr2 = document.querySelector("#alertMessage_ticket_rate");
+
+    _alertStr2.innerHTML = "<i class=\"fas fa-exclamation-circle\"></i><span>\u5957\u7968\u661F\u7D1A\u9700\u65BC1~10\u7D1A\u4E4B\u9593</span>";
+    ticketRankCheck = false;
+  }
+
+  if (ticketNumCheck == true && ticketPriceCheck == true && ticketRankCheck == true) {
+    return true;
+  } else {
+    return false;
+  }
+} //清除input
+
+
+function formClean() {
+  ticketName.value = "";
+  ticketPlace.value = "";
+  ticketDescription.value = "";
+  ticketNum.value = "";
+  ticketPrice.value = "";
+  ticketRank.value = "";
+  ticketPicUrl.value = "";
+} //塞選卡片
+
+
+function travelCardFilter() {
+  var targetPlace = travelSelect.value;
+  var selectCard = [];
+
+  if (targetPlace !== "不限") {
+    selectCard = data.filter(function (item) {
+      return item.area === targetPlace;
+    });
+  } else {
+    selectCard = data.filter(function (item) {
+      return item;
+    });
+  }
+
+  var cardList = "";
+  selectCard.forEach(function (item, index) {
+    var card = "<li data-aos=\"fade-up\" class=\"col-lg-4 col-md-6 col-12 travelCard\">\n        <div class =\"travelCard__container box-shadow\">\n            <p class=\"card__place\">".concat(item.area, "</p>\n            <div class=\"travelCard__img\">\n              <img src=\"https://picsum.photos/900/600?image=").concat(index + 10, "\" alt=\"\">\n            </div>\n          <div class=\"travelCard__content\">\n            <div>\n              <p class=\"card__rank\">").concat(item.rate, "</p>\n              <h4 class=\"card__name\">").concat(item.name, "</h4>\n              <p class=\"card__txt\">").concat(item.description, "</p>\n            </div>\n            <div class=\"card__info\">\n              <p class=\"card__num\"><i class=\"icon fas fa-exclamation-circle\"></i>\u5269\u4E0B\u6700\u5F8C ").concat(item.group, " \u7D44</p>\n              <h5 class=\"card__price\"><span>TWD</span>$").concat(item.price, "</h5>\n            </div>\n          </div>\n        </div>\n      </li>");
+    cardList += card;
+  }); // console.log(cardList)
+
+  travelCardList.innerHTML = cardList;
+  filterResult.textContent = "\u672C\u6B21\u641C\u5C0B\u5171 ".concat(selectCard.length, " \u7B46\u8CC7\u6599");
+} //監聽動作列表
+
+
+ticketInputBtn.addEventListener("click", addTravelCard);
+travelSelect.addEventListener("change", travelCardFilter);
 // const data = [
 //   {
 //     id: 0,
@@ -287,4 +340,35 @@ $(document).ready(function () {
 //   },
 // ]
 "use strict";
+"use strict";
+
+var chart = c3.generate({
+  bindto: "#chart",
+  data: {
+    columns: [["data1", 30, 200, 100, 400, 150, 250], ["data2", 50, 20, 10, 40, 15, 25]],
+    type: 'donut' // onclick: function (d, i) { console.log("onclick", d, i); },
+    // onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+    // onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+
+  },
+  donut: {
+    title: "套票地區比重"
+  }
+}); // setTimeout(function () {
+//     chart.load({
+//         columns: [
+//             ["我", 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2, 0.4, 0.4, 0.3, 0.3, 0.3, 0.2, 0.4, 0.2, 0.5, 0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4, 0.1, 0.2, 0.2, 0.2, 0.2, 0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2, 0.2, 0.2],
+//             ["versicolor", 1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1.0, 1.3, 1.4, 1.0, 1.5, 1.0, 1.4, 1.3, 1.4, 1.5, 1.0, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1.0, 1.1, 1.0, 1.2, 1.6, 1.5, 1.6, 1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1.0, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3],
+//             ["你", 2.5, 1.9, 2.1, 1.8, 2.2, 2.1, 1.7, 1.8, 1.8, 2.5, 2.0, 1.9, 2.1, 2.0, 2.4, 2.3, 1.8, 2.2, 2.3, 1.5, 2.3, 2.0, 2.0, 1.8, 2.1, 1.8, 1.8, 1.8, 2.1, 1.6, 1.9, 2.0, 2.2, 1.5, 1.4, 2.3, 2.4, 1.8, 1.8, 2.1, 2.4, 2.3, 1.9, 2.3, 2.5, 2.3, 1.9, 2.0, 2.3, 1.8],
+//         ]
+//     });
+// }, 1500);
+// setTimeout(function () {
+//     chart.unload({
+//         ids: 'data1'
+//     });
+//     chart.unload({
+//         ids: 'data2'
+//     });
+// }, 2500);
 //# sourceMappingURL=all.js.map

@@ -212,7 +212,7 @@
 }
 .tavelFilterForm {
   margin-bottom: 48px;
-  .form__inputList{
+  .form__inputList {
     display: flex;
     justify-content: flex-end;
     .travelSelect {
@@ -223,8 +223,11 @@
     }
     margin-right: 2%;
   }
+  .filterResult {
+    height: 38px;
+    line-height: 38px;
+  }
 }
-
 
 @media (max-width: 1200px) {
   .travelCard__content {
@@ -274,3 +277,8 @@
     }
   }
 }
+
+// #chart {
+//   height: 160px;
+//   width: 160px;
+// }
