@@ -14144,4 +14144,15 @@ label {
   }
 }
 
+.chart--location {
+  width: 200px;
+  height: 240px;
+}
+
+.chart--location .c3-legend-item,
+.chart--location .c3-chart-arcs-title {
+  fill: #4b4b4b;
+  font-size: 14px;
+}
+
 /*# sourceMappingURL=all.css.map */

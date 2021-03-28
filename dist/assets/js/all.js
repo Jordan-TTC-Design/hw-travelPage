@@ -16,8 +16,7 @@ var ticketDescription = document.querySelector("#ticketDescription");
 var ticketInputBtn = document.querySelector(".form__inputBtn");
 var travelSelect = document.querySelector("#travelSelect");
 var filterResult = document.querySelector("#filterResult");
-var data;
-var newData = []; //初始化 axios 抓資料
+var data; //初始化 axios 抓資料
 
 function init() {
   //等級二
@@ -60,66 +59,6 @@ function addTravelCard(event) {
     c3Data();
     formClean();
   }
-} //開始整理c3.js需要的data
-//計算各地區總數量
-
-
-function c3Data() {
-  newData = [];
-  var locationNum = {};
-  data.forEach(function (item, index) {
-    if (locationNum[item.area] == undefined) {
-      locationNum[item.area] = 1;
-    } else {
-      locationNum[item.area] += 1;
-    }
-  });
-  console.log(locationNum); //抓出物件屬性
-
-  var locationNameList = Object.keys(locationNum);
-  locationNameList.forEach(function (item) {
-    var array = [];
-    array.push(item);
-    array.push(locationNum[item]);
-    newData.push(array);
-  });
-  console.log(newData); //一定要透過參數傳入值
-
-  c3Render();
-}
-
-function c3Render() {
-  console.log(newData);
-  var chart = c3.generate({
-    bindto: "#chart",
-    // HTML 元素綁定
-    data: {
-      columns: newData,
-      type: "donut",
-      onclick: function onclick(d, i) {
-        console.log("onclick", d, i);
-      },
-      onmouseover: function onmouseover(d, i) {
-        console.log("onmouseover", d, i);
-      },
-      onmouseout: function onmouseout(d, i) {
-        console.log("onmouseout", d, i);
-      }
-    },
-    color: {
-      高雄: "#E68618",
-      台北: "#25C0C7",
-      台中: "#5151D3"
-    },
-    donut: {
-      title: "套票地區比重",
-      label: {
-        show: false
-      },
-      width: 15 // expand: false
-
-    }
-  });
 } //抓取資料產生物件
 
 
@@ -342,33 +281,61 @@ travelSelect.addEventListener("change", travelCardFilter);
 "use strict";
 "use strict";
 
-var chart = c3.generate({
-  bindto: "#chart",
-  data: {
-    columns: [["data1", 30, 200, 100, 400, 150, 250], ["data2", 50, 20, 10, 40, 15, 25]],
-    type: 'donut' // onclick: function (d, i) { console.log("onclick", d, i); },
-    // onmouseover: function (d, i) { console.log("onmouseover", d, i); },
-    // onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+//開始整理c3.js需要的data
+//計算各地區總數量
+function c3Data() {
+  var locationNum = {};
+  data.forEach(function (item, index) {
+    if (locationNum[item.area] == undefined) {
+      locationNum[item.area] = 1;
+    } else {
+      locationNum[item.area] += 1;
+    }
+  });
+  console.log(locationNum); //抓出物件屬性
 
-  },
-  donut: {
-    title: "套票地區比重"
-  }
-}); // setTimeout(function () {
-//     chart.load({
-//         columns: [
-//             ["我", 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2, 0.4, 0.4, 0.3, 0.3, 0.3, 0.2, 0.4, 0.2, 0.5, 0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4, 0.1, 0.2, 0.2, 0.2, 0.2, 0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2, 0.2, 0.2],
-//             ["versicolor", 1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1.0, 1.3, 1.4, 1.0, 1.5, 1.0, 1.4, 1.3, 1.4, 1.5, 1.0, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1.0, 1.1, 1.0, 1.2, 1.6, 1.5, 1.6, 1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1.0, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3],
-//             ["你", 2.5, 1.9, 2.1, 1.8, 2.2, 2.1, 1.7, 1.8, 1.8, 2.5, 2.0, 1.9, 2.1, 2.0, 2.4, 2.3, 1.8, 2.2, 2.3, 1.5, 2.3, 2.0, 2.0, 1.8, 2.1, 1.8, 1.8, 1.8, 2.1, 1.6, 1.9, 2.0, 2.2, 1.5, 1.4, 2.3, 2.4, 1.8, 1.8, 2.1, 2.4, 2.3, 1.9, 2.3, 2.5, 2.3, 1.9, 2.0, 2.3, 1.8],
-//         ]
-//     });
-// }, 1500);
-// setTimeout(function () {
-//     chart.unload({
-//         ids: 'data1'
-//     });
-//     chart.unload({
-//         ids: 'data2'
-//     });
-// }, 2500);
+  var newData = [];
+  var locationNameList = Object.keys(locationNum);
+  locationNameList.forEach(function (item) {
+    var array = [];
+    array.push(item);
+    array.push(locationNum[item]);
+    newData.push(array);
+  }); // console.log(newData);
+  //一定要透過參數傳入值
+
+  c3Render(newData);
+} //渲染圖表
+
+
+function c3Render(newData) {
+  // console.log(newData);
+  var chart = c3.generate({
+    bindto: "#chart--location",
+    // HTML 元素綁定
+    data: {
+      columns: newData,
+      type: "donut",
+      onclick: function onclick(d, i) {
+        console.log("onclick", d, i);
+      },
+      onmouseover: function onmouseover(d, i) {
+        console.log("onmouseover", d, i);
+      },
+      onmouseout: function onmouseout(d, i) {
+        console.log("onmouseout", d, i);
+      }
+    },
+    color: {
+      pattern: ["#E68618", "#25C0C7", "#5151D3"]
+    },
+    donut: {
+      title: "套票地區比重",
+      label: {
+        show: false
+      },
+      width: 12
+    }
+  });
+}
 //# sourceMappingURL=all.js.map
